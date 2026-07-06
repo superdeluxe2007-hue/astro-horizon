@@ -16,7 +16,7 @@ export interface SiteDataProps {
 
 // Update this file with your site specific information
 const siteData: SiteDataProps = {
-	name: "Enlee（エンリー）",
+	name: "Enlee",
 	// Your website's title and description (meta fields)
 	title: "Enlee（エンリー）| 福山・中央公園のガーデンレストラン｜団体宴会・お弁当・ケータリング",
 	description:

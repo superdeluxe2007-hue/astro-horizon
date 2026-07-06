@@ -27,7 +27,7 @@
 		@apply ring-primary-300 rounded-none ring-2 transition-none outline-none;
 	}
 	html {
-		@apply bg-base-100 text-base-900 leading-[1.6rem] scheme-light;
+		@apply bg-base-100 text-base-900 leading-relaxed scheme-light;
 		scroll-behavior: smooth;
 		-moz-text-size-adjust: none;
 		-webkit-text-size-adjust: none;
@@ -44,11 +44,11 @@
 	}
 
 	.h2 {
-		@apply font-heading-1 text-2xl leading-tight tracking-wide uppercase md:text-[2.5rem] md:leading-tight;
+		@apply font-heading-1 text-2xl leading-snug tracking-wide uppercase md:text-[2.5rem] md:leading-snug;
 	}
 
 	.h3 {
-		@apply font-heading-2 text-lg leading-tight font-medium tracking-widest uppercase md:text-2xl md:leading-tight;
+		@apply font-heading-2 text-lg leading-snug font-medium tracking-widest uppercase md:text-2xl md:leading-snug;
 	}
 
 	.description {
