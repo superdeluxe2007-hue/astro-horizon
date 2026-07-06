@@ -16,23 +16,23 @@ export interface SiteDataProps {
 
 // Update this file with your site specific information
 const siteData: SiteDataProps = {
-	name: "Horizon Photography",
+	name: "Enlee（エンリー）",
 	// Your website's title and description (meta fields)
-	title: "Horizon - a beautiful photography website template made with Astro and Tailwind CSS",
+	title: "Enlee（エンリー）| 福山・中央公園のガーデンレストラン｜団体宴会・お弁当・ケータリング",
 	description:
-		"Get your next website up and running quickly with our beautiful website theme designed using Astro and Tailwind CSS. Perfect for freelancers, developers, startups, and personal use.",
+		"福山市・中央公園内のガーデンレストランEnlee（エンリー）。団体様の宴会・BBQ・お弁当やオードブルのケータリングを承ります。図書館・ローズコム隣接で、会議後の懇親会にも最適です。",
 	useViewTransitions: true,
 	// Your information!
 	author: {
-		name: "Cosmic Themes",
-		email: "creator@cosmicthemes.com",
-		twitter: "Cosmic_Themes",
+		name: "Enlee",
+		email: "info@enlee.example.com",
+		twitter: "",
 	},
 
 	// default image for meta tags if the page doesn't have an image already
 	defaultImage: {
-		src: "/images/cosmic-themes-logo.jpg",
-		alt: "Cosmic Themes logo",
+		src: "/images/enlee-venue-night.jpg",
+		alt: "Enlee ガーデンレストラン外観",
 	},
 };
 

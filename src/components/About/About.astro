@@ -3,25 +3,24 @@
  * * About section
  */
 
-import profileImage from "@assets/images/photographer-min.jpg";
+import profileImage from "@assets/images/kokon-venue.jpg";
 import { Image } from "astro:assets";
 ---
 
 <section id="about" class="site-container scroll-mt-10 py-8 md:py-12">
 	<div class="flex flex-col md:flex-row">
 		<div class="md:w-2/3">
-			<h2 class="h3 text-primary-500 text-pretty uppercase">Meet your photographer</h2>
-			<h3 class="h2 mt-4">Jenna Marie</h3>
+			<h2 class="h3 text-primary-500 text-pretty uppercase">Enleeについて</h2>
+			<h3 class="h2 mt-4">中央公園のガーデンレストラン</h3>
 			<div class="bg-base-100 mt-8 p-8 md:mb-20 lg:text-lg">
 				<p>
-					I specialize in capturing the unique beauty and joy of your special day. With a passion
-					for storytelling and a keen eye for detail, I strive to create timeless images that
-					reflect your love and personality. Whether it's a beachfront ceremony, a vineyard
-					reception, or a city hall elopement, I am dedicated to providing you with exceptional
-					photography.
+					福山市のパークPFI事業のもと、2021年に中央公園内にオープンしたガーデンレストランです。緑に囲まれた空間で食と時間を丁寧に楽しめる、少し特別な場所を目指しています。ランチ・カフェとしての日常使いはもちろん、団体様の宴会・屋外BBQ・お弁当やオードブルのケータリングまで、幅広くご利用いただけます。
+				</p>
+				<p class="mt-4">
+					貸切専用スペースのKOKON（Enleeから徒歩2分）もあわせてご利用可能です。図書館・ローズコムがすぐそばにあり、会議やイベントのあとの懇親会にも便利な立地です。
 				</p>
 				<div class="flex w-3/4 justify-end">
-					<p class="font-heading-1 text-3xl italic">- Jenna</p>
+					<p class="font-heading-1 text-3xl italic">- Enlee</p>
 				</div>
 			</div>
 		</div>
@@ -29,7 +28,7 @@ import { Image } from "astro:assets";
 			<div class="my-auto aspect-[3/4] w-full overflow-hidden">
 				<Image
 					src={profileImage}
-					alt="Jenna Marie"
+					alt="KOKON（貸切専用スペース）"
 					width={450}
 					densities={[1.5, 2]}
 					class="h-auto min-h-full w-full min-w-full object-cover"

@@ -14,37 +14,24 @@ export type navItem = navLinkItem | navDropdownItem;
 // note: 1 level of dropdown is supported
 const navConfig: navItem[] = [
 	{
-		text: "Home",
+		text: "ホーム",
 		link: "/",
 	},
 	{
-		text: "portfolios",
+		text: "ご利用シーン・プラン",
 		link: "/portfolio/",
 	},
 	{
-		text: "Pricing",
+		text: "お弁当・オードブル",
 		link: "/#pricing",
 	},
 	{
-		text: "Pages",
-		dropdown: [
-			{
-				text: "Portfolio",
-				link: "/portfolio/couple-1/",
-			},
-			{
-				text: "Legal",
-				link: "/privacy-policy/",
-			},
-			{
-				text: "Elements",
-				link: "/elements/",
-			},
-			{
-				text: "404",
-				link: "/not-a-link/",
-			},
-		],
+		text: "Enleeについて",
+		link: "/#about",
+	},
+	{
+		text: "ご予約・お問い合わせ",
+		link: "/#contact",
 	},
 ];
 
