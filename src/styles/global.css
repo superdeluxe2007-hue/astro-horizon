@@ -40,15 +40,15 @@
 
 @layer components {
 	.h1 {
-		@apply font-heading-1 text-4xl font-semibold lg:text-5xl;
+		@apply font-heading-1 text-4xl font-medium lg:text-5xl;
 	}
 
 	.h2 {
-		@apply font-heading-1 text-2xl leading-snug tracking-wide uppercase md:text-[2.5rem] md:leading-snug;
+		@apply font-heading-1 text-2xl leading-snug tracking-wide md:text-[2.25rem] md:leading-snug;
 	}
 
 	.h3 {
-		@apply font-heading-2 text-lg leading-snug font-medium tracking-widest uppercase md:text-2xl md:leading-snug;
+		@apply font-heading-2 text-base leading-snug font-medium tracking-[0.2em] uppercase md:text-lg md:leading-snug;
 	}
 
 	.description {
@@ -71,7 +71,7 @@
 
 	/* styles navbar links */
 	.nav__link--base {
-		@apply font-heading-1 px-4 py-2 tracking-wide uppercase transition duration-200 hover:opacity-80;
+		@apply font-heading-2 px-4 py-2 text-sm tracking-wide transition duration-200 hover:opacity-80;
 	}
 }
 

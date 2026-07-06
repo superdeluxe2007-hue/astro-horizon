@@ -29,6 +29,12 @@ importers:
       '@fontsource/cinzel-decorative':
         specifier: 5.2.5
         version: 5.2.5
+      '@fontsource/cormorant-garamond':
+        specifier: ^5.2.11
+        version: 5.2.11
+      '@fontsource/noto-serif-jp':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fontsource/shippori-mincho':
         specifier: ^5.2.8
         version: 5.2.8
@@ -398,6 +404,12 @@ packages:
 
   '@fontsource/cinzel-decorative@5.2.5':
     resolution: {integrity: sha512-iXN1HxjU8AHHnkDXeIu5apPgFuBxkwnL3GVPrDvCmylCXl+45hx1GNhtzCzFd2zJwBsv+ggOOIgshBMJB8ymgg==}
+
+  '@fontsource/cormorant-garamond@5.2.11':
+    resolution: {integrity: sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA==}
+
+  '@fontsource/noto-serif-jp@5.2.8':
+    resolution: {integrity: sha512-x+tGrrK+4t/hoHLxAl7Ry5nN8CVPermqz0fD7HtCXzBJSxzFKxNH9y+cuOD3gZW0tyKZ2CD7WvuAfHbISvjL5Q==}
 
   '@fontsource/shippori-mincho@5.2.8':
     resolution: {integrity: sha512-GoWDgrzVyB1oUufPKN9suBaM+TpliiBcMwEalqqMeO38xdGJzY/ZwhehZsxyOoR56c1l98vwXbj+tXWHyGefJA==}
@@ -4141,6 +4153,10 @@ snapshots:
   '@fontsource-variable/work-sans@5.2.5': {}
 
   '@fontsource/cinzel-decorative@5.2.5': {}
+
+  '@fontsource/cormorant-garamond@5.2.11': {}
+
+  '@fontsource/noto-serif-jp@5.2.8': {}
 
   '@fontsource/shippori-mincho@5.2.8': {}
 

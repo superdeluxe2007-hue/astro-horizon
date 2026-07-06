@@ -19,6 +19,8 @@
 		"@fontsource-variable/raleway": "5.2.5",
 		"@fontsource-variable/work-sans": "5.2.5",
 		"@fontsource/cinzel-decorative": "5.2.5",
+		"@fontsource/cormorant-garamond": "^5.2.11",
+		"@fontsource/noto-serif-jp": "^5.2.8",
 		"@fontsource/shippori-mincho": "^5.2.8",
 		"@fontsource/zen-kaku-gothic-new": "^5.2.7",
 		"@iconify-json/tabler": "1.2.17",
