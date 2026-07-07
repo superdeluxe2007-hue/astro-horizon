@@ -5,6 +5,7 @@ import NavDropdown from "@components/Nav/NavDropdown/NavDropdown.astro";
 import NavLink from "@components/Nav/NavLink.astro";
 import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
 import navData from "@config/navData.json";
+import { Icon } from "astro-icon/components";
 
 interface Props {
 	startStyle?: "default" | "white"; // if set to "white", the nav elements will be white until the page is scrolled down. Useful for background hero images.
@@ -46,6 +47,26 @@ const { startStyle = "default", rest } = Astro.props as Props;
 							}
 						</ul>
 					</nav>
+					<div class="hidden items-center gap-3 md:flex">
+						<a
+							href="https://www.instagram.com/enlee_fukuyama/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Instagram"
+							class="transition hover:opacity-70"
+						>
+							<Icon name="socials/basil-instagram-solid" class="size-6" />
+						</a>
+						<a
+							href="https://lin.ee/ngJUcCC"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="LINEでお問い合わせ"
+							class="transition hover:opacity-70"
+						>
+							<Icon name="socials/line" class="size-6" />
+						</a>
+					</div>
 					<Button
 						variant="secondary"
 						class=`nav__cta py-1 my-auto hidden md:block ${startStyle === "white" ? "data-[scrolled=true]:border-primary-200 data-[scrolled=true]:hover:border-primary-200/80" : "border-primary-200"}`
