@@ -23,22 +23,28 @@ const sortedPortfolios = portfolios.sort((a, b) => {
 const firstThreePortfolios = sortedPortfolios.slice(0, 3);
 ---
 
-<section id="portfolio" class="site-container mt-20 scroll-mt-10 py-20 md:py-32">
-	<div class="mx-auto max-w-6xl text-center">
-		<h2 class="h2 text-pretty uppercase">団体・宴会プラン。会場をお選びいただけます</h2>
+<section id="portfolio" class="bg-base-100 scroll-mt-10 py-20 md:py-32">
+	<div class="site-container mx-auto max-w-6xl text-center">
+		<h2 class="h3 text-primary-500 text-pretty uppercase">Party & Gathering</h2>
+		<h3 class="h2 mt-4">大切な集まりや、貸切のご相談も。</h3>
+		<p class="description mx-auto mt-4 max-w-xl">
+			記念日の会食から、会社の懇親会・屋外BBQまで。会場をお選びいただけます。
+		</p>
 	</div>
-	<div class="grid gap-10 pt-8 md:grid-cols-2 md:pt-12">
-		<div class="md:bg-base-100 md:rounded-md md:p-10 md:pb-6">
-			<PortfolioCard portfolio={firstThreePortfolios[0]} direction="vertical" />
+	<div class="site-container">
+		<div class="grid gap-10 pt-8 md:grid-cols-2 md:pt-12">
+			<div class="bg-base-50 md:rounded-md md:p-10 md:pb-6">
+				<PortfolioCard portfolio={firstThreePortfolios[0]} direction="vertical" />
+			</div>
+			<div class="flex h-full flex-col justify-between gap-y-6">
+				<PortfolioCard portfolio={firstThreePortfolios[1]} direction="horizontal" />
+				<hr class="border-base-200 hidden border md:block" />
+				<PortfolioCard portfolio={firstThreePortfolios[2]} direction="horizontal" />
+			</div>
 		</div>
-		<div class="flex h-full flex-col justify-between gap-y-6">
-			<PortfolioCard portfolio={firstThreePortfolios[1]} direction="horizontal" />
-			<hr class="border-base-100 hidden border md:block" />
-			<PortfolioCard portfolio={firstThreePortfolios[2]} direction="horizontal" />
-		</div>
-	</div>
 
-	<div class="mt-12 flex justify-center">
-		<Button href="/portfolio" variant="outline">すべてのプランを見る</Button>
+		<div class="mt-12 flex justify-center">
+			<Button href="/portfolio" variant="outline">すべてのプランを見る</Button>
+		</div>
 	</div>
 </section>

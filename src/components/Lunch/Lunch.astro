@@ -1,0 +1,35 @@
+---
+/**
+ * * Lunch section — everyday appeal, not group bookings
+ */
+
+import lunchImage from "@assets/images/enlee-lunch-salad.jpg";
+import { Image } from "astro:assets";
+---
+
+<section id="lunch" class="site-container scroll-mt-10 py-20 md:py-32">
+	<div class="flex flex-col md:flex-row-reverse">
+		<div class="md:w-2/3 md:pl-16">
+			<h2 class="h3 text-primary-500 text-pretty uppercase">Lunch</h2>
+			<h3 class="h2 mt-4">庭を眺めながら、ゆっくりとしたお昼を。</h3>
+			<div class="mt-8 lg:text-lg">
+				<p>
+					旬の野菜をたっぷり使ったプレートや、自家製デミグラスのオムライス、注文を受けてから焼き上げるピザ。忙しい日常の合間にも、緑を感じながら深呼吸できるような、そんなランチをご用意しています。
+				</p>
+				<p class="mt-4">お一人でのご来店も、お友達とのランチも。ふらりと立ち寄っていただけたら嬉しいです。</p>
+			</div>
+			<p class="description mt-6 text-sm">11:00–14:00（L.O）</p>
+		</div>
+		<div class="mr-auto mt-8 max-w-md md:mt-0 md:w-1/3 md:max-w-none">
+			<div class="my-auto aspect-[3/4] w-full overflow-hidden">
+				<Image
+					src={lunchImage}
+					alt="Enleeのランチプレート"
+					width={450}
+					densities={[1.5, 2]}
+					class="h-auto min-h-full w-full min-w-full object-cover"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

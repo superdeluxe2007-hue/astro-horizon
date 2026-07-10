@@ -1,0 +1,44 @@
+---
+/**
+ * * Evening cafe / dessert & wine section
+ */
+
+import fontainebleauImage from "@assets/images/enlee-dessert-fontainebleau.jpg";
+import fruitTartImage from "@assets/images/enlee-fruit-tart.jpg";
+import gelatoImage from "@assets/images/enlee-gelato.jpg";
+import { Image } from "astro:assets";
+
+const images = [
+	{ src: fontainebleauImage, alt: "フロマージュブランと季節のフルーツ" },
+	{ src: gelatoImage, alt: "自家製ジェラート" },
+	{ src: fruitTartImage, alt: "季節のフルーツタルト" },
+];
+---
+
+<section id="evening-cafe" class="bg-base-100 scroll-mt-10 py-20 md:py-32">
+	<div class="site-container">
+		<div class="mx-auto max-w-2xl text-center">
+			<h2 class="h3 text-primary-500 text-pretty uppercase">Evening Cafe</h2>
+			<h3 class="h2 mt-4">灯りがともる頃、少し特別なデザートタイム。</h3>
+			<p class="description mt-6 lg:text-lg">
+				フレンチトースト、フロマージュブラン、自家製ジェラート。日が暮れて庭に灯りがともる時間は、ワインやシードルを片手にゆっくりとデザートを楽しむひとときに変わります。
+			</p>
+		</div>
+		<div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 md:mt-16">
+			{
+				images.map((img) => (
+					<div class="aspect-[3/4] overflow-hidden">
+						<Image
+							src={img.src}
+							alt={img.alt}
+							width={450}
+							densities={[1.5, 2]}
+							class="h-full w-full object-cover"
+						/>
+					</div>
+				))
+			}
+		</div>
+		<p class="description mt-8 text-center text-sm">フード 14:00–21:00（L.O 20:00）</p>
+	</div>
+</section>

@@ -1,24 +1,26 @@
 ---
 import About from "@components/About/About.astro";
-import Button from "@components/Button/Button.astro";
 import Contact from "@components/Contact/Contact.astro";
+import EveningCafe from "@components/EveningCafe/EveningCafe.astro";
+import Gallery from "@components/Gallery/Gallery.astro";
 // components
 import Hero from "@components/Hero/Hero.astro";
+import Lunch from "@components/Lunch/Lunch.astro";
 import PortfolioThreeCards from "@components/Portfolio/PortfolioThreeCards.astro";
 import PricingThreeCards from "@components/Pricing/PricingThreeCards.astro";
-import Testimonials from "@components/Testimonials/Testimonials.astro";
 // data
 import siteData from "@config/siteData.json";
 // layout
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description} navStartStyle="white">
 	<Hero />
-	<PortfolioThreeCards />
-	<Testimonials />
-	<PricingThreeCards />
 	<About />
+	<Lunch />
+	<EveningCafe />
+	<Gallery />
+	<PortfolioThreeCards />
+	<PricingThreeCards />
 	<Contact />
 </BaseLayout>

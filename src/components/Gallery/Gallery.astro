@@ -1,0 +1,54 @@
+---
+/**
+ * * Instagram-style photo gallery to build brand fandom
+ */
+
+import bbqImage from "@assets/images/enlee-bbq-real.jpg";
+import frenchToastImage from "@assets/images/enlee-french-toast.jpg";
+import pizzaImage from "@assets/images/enlee-pizza.jpg";
+import signageImage from "@assets/images/enlee-signage.jpg";
+import venueImage from "@assets/images/enlee-venue-night.jpg";
+import kokonImage from "@assets/images/kokon-venue.jpg";
+import { Image } from "astro:assets";
+
+const images = [
+	{ src: signageImage, alt: "Enleeの看板" },
+	{ src: pizzaImage, alt: "自家製生地のピザ" },
+	{ src: kokonImage, alt: "緑に囲まれた店内" },
+	{ src: frenchToastImage, alt: "季節のフレンチトースト" },
+	{ src: venueImage, alt: "夜のEnlee外観" },
+	{ src: bbqImage, alt: "庭でのひととき" },
+];
+---
+
+<section id="gallery" class="site-container scroll-mt-10 py-20 md:py-32">
+	<div class="mx-auto max-w-2xl text-center">
+		<h2 class="h3 text-primary-500 text-pretty uppercase">Gallery</h2>
+		<h3 class="h2 mt-4">Enleeの、いつもの一コマ。</h3>
+	</div>
+	<div class="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-3 md:gap-6">
+		{
+			images.map((img) => (
+				<div class="aspect-square overflow-hidden">
+					<Image
+						src={img.src}
+						alt={img.alt}
+						width={450}
+						densities={[1.5, 2]}
+						class="h-full w-full object-cover transition duration-500 hover:scale-105"
+					/>
+				</div>
+			))
+		}
+	</div>
+	<div class="mt-10 text-center">
+		<a
+			href="https://www.instagram.com/enlee_fukuyama/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="hover:text-primary-500 underline underline-offset-4 transition"
+		>
+			Instagramでもっと見る
+		</a>
+	</div>
+</section>
