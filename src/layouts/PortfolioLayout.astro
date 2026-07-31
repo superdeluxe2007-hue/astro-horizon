@@ -81,8 +81,8 @@ const otherPortfolios = await getCollection("portfolios", (otherPortfolio) => {
 			<span>{location}</span>
 		</h2>
 
-		<!-- slot really only fuctions as a longer description -->
-		<div class="description mt-6 text-center text-pretty md:text-lg">
+		<!-- slot functions as a longer description, but can also contain richer content (tables, lists) -->
+		<div class="description markdown-content mt-6 text-center text-pretty md:text-lg">
 			<slot />
 		</div>
 

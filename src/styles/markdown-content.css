@@ -148,6 +148,12 @@
 	@apply ps-4;
 }
 
+/* tables and lists are structured content, so keep them left-aligned even when
+   the surrounding prose (e.g. portfolio descriptions) is centered */
+.markdown-content :is(table, ul, ol):not(:where(.not-content *)) {
+	text-align: left;
+}
+
 /* Table styling */
 .markdown-content table:not(:where(.not-content *)) {
 	@apply mb-4 overflow-auto;
