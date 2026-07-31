@@ -15,26 +15,26 @@ export type navItem = navLinkItem | navDropdownItem;
 const navConfig: navItem[] = [
 	{
 		text: "Enleeについて",
-		link: "/#concept",
+		link: "/about",
 	},
 	{
 		text: "ランチ",
-		link: "/#lunch",
+		link: "/lunch",
 	},
 	{
 		text: "夜カフェ",
-		link: "/#evening-cafe",
+		link: "/evening-cafe",
 	},
 	{
 		text: "パーティー・お弁当",
 		dropdown: [
 			{
 				text: "貸切・パーティー",
-				link: "/#portfolio",
+				link: "/portfolio",
 			},
 			{
 				text: "お弁当・オードブル",
-				link: "/#pricing",
+				link: "/takeout",
 			},
 		],
 	},

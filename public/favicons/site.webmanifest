@@ -1,6 +1,6 @@
 {
-	"name": "MyWebSite",
-	"short_name": "MySite",
+	"name": "Enlee（エンリー）",
+	"short_name": "Enlee",
 	"icons": [
 		{
 			"src": "/favicons/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
 			"purpose": "maskable"
 		}
 	],
-	"theme_color": "#ffffff",
-	"background_color": "#ffffff",
+	"theme_color": "#7a5a45",
+	"background_color": "#f8f5f0",
 	"display": "standalone"
 }

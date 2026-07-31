@@ -3,8 +3,15 @@
  * * Concept / brand story section
  */
 
+import Button from "@components/Button/Button.astro";
 import profileImage from "@assets/images/enlee-interior-day.jpg";
 import { Image } from "astro:assets";
+
+interface Props {
+	compact?: boolean; // ホームではダイジェスト表示にし、詳細は /about へ誘導する
+}
+
+const { compact = false } = Astro.props as Props;
 ---
 
 <section id="concept" class="site-container scroll-mt-10 py-20 md:py-32">
@@ -16,15 +23,31 @@ import { Image } from "astro:assets";
 				<p>
 					ロンドンの「ピーターシャム・ナーサリーズ」に着想を得て、2021年に中央公園の中にオープンしたガーデンレストランです。大きな窓から差し込む光、風に揺れる木々、季節ごとに表情を変える庭。そんな景色に囲まれて過ごす時間そのものを、大切な一皿として届けたいと思っています。
 				</p>
-				<p class="mt-4">
-					図書館の横、公園の中にあるガーデンレストラン。開放的な店内は季節を感じられるメニューや、テーブルは季節の花々で彩られ、騒がしい日常を少しだけ特別な日に変えてくれます。
-				</p>
-				<p class="mt-4">
-					旬の野菜を使ったランチで一日をはじめる人も、夕暮れどきにデザートとワインでひと息つく人も。特別な日だけでなく、何気ない日常の中にこそ、少しだけ豊かな時間を。それがEnleeの願いです。
-				</p>
-				<div class="flex w-3/4 justify-end">
-					<p class="font-heading-1 text-3xl italic">- Enlee</p>
-				</div>
+				{
+					!compact && (
+						<>
+							<p class="mt-4">
+								図書館の横、公園の中にあるガーデンレストラン。開放的な店内は季節を感じられるメニューや、テーブルは季節の花々で彩られ、騒がしい日常を少しだけ特別な日に変えてくれます。
+							</p>
+							<p class="mt-4">
+								旬の野菜を使ったランチで一日をはじめる人も、夕暮れどきにデザートとワインでひと息つく人も。特別な日だけでなく、何気ない日常の中にこそ、少しだけ豊かな時間を。それがEnleeの願いです。
+							</p>
+						</>
+					)
+				}
+				{
+					compact ? (
+						<div class="mt-8">
+							<Button href="/about" variant="outline" arrow="right">
+								お店のことを詳しく見る
+							</Button>
+						</div>
+					) : (
+						<div class="flex w-3/4 justify-end">
+							<p class="font-heading-1 text-3xl italic">- Enlee</p>
+						</div>
+					)
+				}
 			</div>
 		</div>
 		<div class="mr-auto max-w-md md:w-1/3 md:max-w-none">

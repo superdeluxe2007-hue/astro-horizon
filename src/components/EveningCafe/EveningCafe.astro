@@ -3,10 +3,17 @@
  * * Evening cafe / dessert & wine section
  */
 
+import Button from "@components/Button/Button.astro";
 import fontainebleauImage from "@assets/images/enlee-dessert-fontainebleau.jpg";
 import fruitTartImage from "@assets/images/enlee-fruit-tart.jpg";
 import gelatoImage from "@assets/images/enlee-gelato.jpg";
 import { Image } from "astro:assets";
+
+interface Props {
+	compact?: boolean; // ホームではダイジェスト表示にし、詳細は /evening-cafe へ誘導する
+}
+
+const { compact = false } = Astro.props as Props;
 
 const images = [
 	{ src: fontainebleauImage, alt: "フロマージュブランと季節のフルーツ" },
@@ -40,5 +47,14 @@ const images = [
 			}
 		</div>
 		<p class="description mt-8 text-center text-sm">フード 14:00–21:00（L.O 20:00）</p>
+		{
+			compact && (
+				<div class="mt-10 flex justify-center">
+					<Button href="/evening-cafe" variant="outline" arrow="right">
+						夜カフェについて詳しく見る
+					</Button>
+				</div>
+			)
+		}
 	</div>
 </section>

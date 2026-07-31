@@ -1,0 +1,16 @@
+---
+import Contact from "@components/Contact/Contact.astro";
+import PricingThreeCards from "@components/Pricing/PricingThreeCards.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="お弁当・オードブル"
+	description="ご自宅や職場、イベントでも楽しめるEnleeのお弁当・オードブル・デザートのケータリング。ご注文は2営業日前まで承っております。"
+>
+	<div class="pt-10 md:pt-16">
+		<PricingThreeCards />
+	</div>
+
+	<Contact class="mt-12" />
+</BaseLayout>

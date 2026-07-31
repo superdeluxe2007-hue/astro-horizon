@@ -1,0 +1,16 @@
+---
+import Contact from "@components/Contact/Contact.astro";
+import EveningCafeSection from "@components/EveningCafe/EveningCafe.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="夜カフェ"
+	description="フレンチトースト、フロマージュブラン、自家製ジェラート。庭に灯りがともる時間に、ワインやシードルとともに楽しむEnleeの夜カフェ（フード 14:00–21:00 L.O 20:00）のご案内です。"
+>
+	<div class="pt-10 md:pt-16">
+		<EveningCafeSection />
+	</div>
+
+	<Contact class="mt-12" />
+</BaseLayout>

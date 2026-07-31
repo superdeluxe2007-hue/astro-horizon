@@ -1,0 +1,16 @@
+---
+import AboutSection from "@components/About/About.astro";
+import Contact from "@components/Contact/Contact.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="Enleeについて"
+	description="ロンドンの「ピーターシャム・ナーサリーズ」に着想を得て、2021年に福山・中央公園の中にオープンしたガーデンレストランEnleeのコンセプトをご紹介します。"
+>
+	<div class="pt-10 md:pt-16">
+		<AboutSection />
+	</div>
+
+	<Contact class="mt-12" />
+</BaseLayout>
