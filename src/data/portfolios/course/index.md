@@ -6,7 +6,7 @@ date: "Jun 25 2026"
 location: 少人数の会食から貸切ご宴会まで
 clients: ["少人数コース5,000円〜", "貸切コース6,500円〜（税込・飲み放題付き）"]
 images:
-  [[./course-hero.jpg], [./enlee-venue.jpg, ./kokon-venue.jpg]]
+  [[./course-hero.jpg], [./course-private-table.jpg, ./course-table-setting.jpg]]
 order: 1
 ---
 

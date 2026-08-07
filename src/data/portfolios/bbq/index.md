@@ -6,7 +6,7 @@ date: "Jun 25 2026"
 location: 会社の懇親会・グループ利用に最適
 clients: ["大人6,000円（税込・飲み放題付き／中学生・高校生4,500円・小学生3,500円・5歳以下無料）"]
 images:
-  [[./bbq-hero.jpg], [./enlee-venue.jpg, ./kokon-venue.jpg]]
+  [[./bbq-hero.jpg], [./bbq-terrace.jpg, ./bbq-tent.jpg]]
 order: 3
 ---
 
