@@ -1,67 +1,127 @@
 ---
 /**
- * * Pricing cards with three cards
+ * * Takeout section — お弁当・オードブルの2カテゴリ
+ * 掲載内容は「エンリーのお弁当とオードブル」メニューシート（2026-08）の確定値
  */
 
 import Button from "@components/Button/Button.astro";
 import { Image } from "astro:assets";
 
-interface pricingItem {
-	name: string; // plan name
-	featured?: boolean; // if true, will be highlighted or otherwise featured
-	price: string;
-	features: string[]; // list of features
-	image: ImageMetadata; // imported image
-}
-
 interface Props {
-	compact?: boolean; // ホームではダイジェスト表示にし、詳細は /takeout へ誘導する
+	compact?: boolean; // トップページ用。要約表示にして専用ページへ送る
 }
 
 const { compact = false } = Astro.props as Props;
 
-import image1 from "@assets/images/enlee-bento-obanzai.jpg";
-import image2 from "@assets/images/enlee-hors-doeuvre.jpg";
-import image3 from "@assets/images/enlee-dessert-box.jpg";
+interface menuItem {
+	name: string;
+	price: string;
+	note?: string; // 「お茶付き」など価格に添える補足
+	description: string;
+}
 
-// This is designed for 3 pricing items, but can be modified to support more
-const pricingData: pricingItem[] = [
+interface takeoutCategory {
+	name: string;
+	nameEn: string;
+	priceFrom: string; // カード下部に大きく出す最低価格
+	image: ImageMetadata;
+	imageCaption: string; // 写真がどの商品かを明示し、価格との食い違いによる誤解を防ぐ
+	items: menuItem[];
+}
+
+import bentoImage from "@assets/images/enlee-bento-obanzai.jpg";
+import horsDoeuvreImage from "@assets/images/enlee-hors-doeuvre.jpg";
+
+const takeoutData: takeoutCategory[] = [
 	{
 		name: "お弁当",
-		featured: false,
-		price: "1,100",
-		features: [
-			"BLTサンド ¥1,100〜",
-			"おばんざい弁当 ¥1,320",
-			"ミスジステーキ弁当 ¥2,160（お茶付き）",
-			"自家製ローストビーフ弁当 ¥1,980（お茶付き）",
+		nameEn: "Bento",
+		priceFrom: "1,100",
+		image: bentoImage,
+		imageCaption: "写真：おばんざい弁当 ¥1,320",
+		items: [
+			{
+				name: "BLTサンド",
+				price: "¥1,100",
+				description: "ベーコン・レタス・トマトを使った定番サンド",
+			},
+			{
+				name: "クラブハウスサンド",
+				price: "¥1,200",
+				description: "自家製鶏ハムとレタスのオリジナルサンド",
+			},
+			{
+				name: "おばんざい弁当",
+				price: "¥1,320",
+				description: "旬の食材を使ったやさしい手づくり弁当",
+			},
+			{
+				name: "自家製ローストビーフ弁当",
+				price: "¥1,980",
+				note: "お茶付き",
+				description: "しっとり仕上げた自家製ローストビーフ",
+			},
+			{
+				name: "ミスジステーキ弁当",
+				price: "¥2,160",
+				note: "お茶付き",
+				description: "やわらかミスジの贅沢ステーキ弁当",
+			},
 		],
-		image: image1,
 	},
 	{
 		name: "オードブル",
-		featured: true,
-		price: "3,800",
-		features: [
-			"サンドイッチのオードブル ¥3,800",
-			"彩りデリオードブル ¥4,200",
-			"手毬おにぎり ¥4,200",
-			"ミスジステーキと季節野菜のグリルオードブル ¥6,200",
+		nameEn: "Hors-d'œuvre",
+		priceFrom: "3,800",
+		image: horsDoeuvreImage,
+		imageCaption: "写真：ミスジステーキと季節野菜のグリルオードブル ¥6,200",
+		items: [
+			{
+				name: "サンドイッチのオードブル",
+				price: "¥3,800",
+				description:
+					"定番BLTや、自家製鶏ハムとシャキシャキ野菜を使ったオリジナルサンドの盛り合わせです。",
+			},
+			{
+				name: "彩りデリオードブル",
+				price: "¥4,200",
+				description:
+					"旬の野菜を使ったサラダや前菜を中心に、大人からお子様まで楽しめる彩り豊かなデリオードブルです。",
+			},
+			{
+				name: "手毬おにぎり",
+				price: "¥4,200",
+				description:
+					"広島菜、たくあん昆布、明太子、ローストビーフ、梅のり、椎茸煮付け、花ラディッシュ、スモークサーモンなど",
+			},
+			{
+				name: "オムライスとフリットのオードブル",
+				price: "¥4,500",
+				description:
+					"オムライス、唐揚げ、ポテト、エビフライを盛り合わせた、みんなで楽しめるオードブルセット。",
+			},
+			{
+				name: "デザートのオードブル",
+				price: "¥4,500",
+				description:
+					"Enleeで人気のシュークリームをはじめ、季節のフルーツを使った焼き菓子やデザートをお楽しみいただけます。",
+			},
+			{
+				name: "ミスジステーキと季節野菜のグリルオードブル",
+				price: "¥6,200",
+				description:
+					"希少部位ミスジステーキ。濃厚な赤身の旨味と霜降りのとろける食感を一度に堪能できる、至高の一品です。",
+			},
 		],
-		image: image2,
 	},
-	{
-		name: "デザート",
-		featured: false,
-		price: "4,500",
-		features: [
-			"デザートのオードブル ¥4,500",
-			"Enlee人気のシュークリームや季節の焼き菓子",
-			"シュークリーム単品 ¥380〜",
-			"ご注文は2営業日前まで",
-		],
-		image: image3,
-	},
+];
+
+const orderNotes = [
+	"ご注文・お問い合わせは、お電話または公式LINEにて承ります。",
+	"ご注文は【2営業日前まで】の受付となります。",
+	"受注状況により、ご希望に添えない場合がございます。",
+	// 最低注文数・金額は未確定のため、条件は設けず相談を促す表現にとどめている
+	"ご注文の数量やご予算については、お気軽にご相談ください。",
 ];
 ---
 
@@ -69,46 +129,65 @@ const pricingData: pricingItem[] = [
 	<div class="mx-auto max-w-6xl text-center">
 		<h2 class="h3 text-primary-500 text-pretty uppercase">Takeout</h2>
 		<h3 class="h2 mt-4">おうちでも、Enleeの味を。</h3>
-		<p class="description mx-auto mt-4 max-w-xl">お弁当やオードブルのケータリングも承っています。</p>
+		<p class="description mx-auto mt-4 max-w-xl">
+			ご自宅や職場、イベントでも楽しめるお弁当・オードブルをご用意しました。大切な方との集まりや特別なシーンにぴったりです。
+		</p>
 	</div>
 
-	<!-- works for 3 pricing plans, adjust grid cols here to support more or less -->
-	<div
-		class="mx-auto grid w-full max-w-md gap-12 pt-8 sm:max-w-none sm:grid-cols-2 md:pt-12 lg:grid-cols-3"
-	>
+	<div class="mx-auto grid w-full max-w-md gap-12 pt-8 sm:max-w-4xl sm:grid-cols-2 md:pt-12">
 		{
-			pricingData.map((plan) => (
-				<div
-					class="flex w-full flex-col"
-					class:list={[
-						{
-							"bg-primary-200": plan.featured === true,
-						},
-					]}
-				>
-					<div>
-						<div class="aspect-[3/4] h-auto w-full overflow-hidden">
-							<Image
-								src={plan.image}
-								alt={plan.name}
-								width={450}
-								densities={[1.5, 2]}
-								class="h-full w-full object-cover"
-							/>
-						</div>
+			takeoutData.map((category) => (
+				<div class="flex w-full flex-col">
+					<div class="aspect-[3/4] h-auto w-full overflow-hidden">
+						<Image
+							src={category.image}
+							alt={category.imageCaption.replace("写真：", "")}
+							width={450}
+							densities={[1.5, 2]}
+							class="h-full w-full object-cover"
+						/>
 					</div>
-					<div class="border-primary-200 flex h-full flex-col justify-between border-2 border-t-0 pt-10 pb-10">
-						<div>
-							<h3 class="h2 text-center">{plan.name}</h3>
+					{/* どの商品の写真かを明示する */}
+					<p class="text-base-900/60 mt-2 text-center text-xs">{category.imageCaption}</p>
 
-							<ul class="mt-4 flex flex-col gap-3 px-8">
-								{(compact ? plan.features.slice(0, 2) : plan.features).map((feature) => (
-									<li class="leading-snug lg:text-lg lg:leading-snug">{feature}</li>
+					<div class="border-primary-200 mt-3 flex h-full flex-col justify-between border-2 pt-8 pb-8">
+						<div>
+							<p class="text-primary-500 text-center text-sm tracking-widest uppercase">
+								{category.nameEn}
+							</p>
+							<h3 class="h2 mt-1 text-center">{category.name}</h3>
+
+							<ul
+								class:list={[
+									"flex flex-col px-6 md:px-8",
+									compact ? "mt-6 gap-3" : "mt-6 gap-5",
+								]}
+							>
+								{(compact ? category.items.slice(0, 3) : category.items).map((item) => (
+									<li>
+										<div class="flex items-baseline justify-between gap-3">
+											<span class="leading-snug font-medium">{item.name}</span>
+											<span class="shrink-0 text-sm whitespace-nowrap">
+												{item.note && (
+													<span class="text-base-900/60 mr-1 text-xs">{item.note}</span>
+												)}
+												{item.price}
+											</span>
+										</div>
+										{!compact && (
+											<p class="text-base-900/70 mt-1 text-sm leading-snug">{item.description}</p>
+										)}
+									</li>
 								))}
 							</ul>
+							{compact && category.items.length > 3 && (
+								<p class="text-base-900/60 mt-4 px-6 text-sm md:px-8">
+									ほか全{category.items.length}品
+								</p>
+							)}
 						</div>
-						<p class="font-decorative text-base-800 mt-6 flex justify-center text-center text-[3.2rem] leading-none">
-							¥{plan.price}
+						<p class="font-decorative text-base-800 mt-8 flex justify-center text-center text-[3.2rem] leading-none">
+							¥{category.priceFrom}
 							<span class="flex h-full text-[2rem]">〜</span>
 						</p>
 					</div>
@@ -117,22 +196,46 @@ const pricingData: pricingItem[] = [
 		}
 	</div>
 
-	<div class="mt-12 flex flex-wrap justify-center gap-4">
+	{
+		!compact && (
+			<>
+				<p class="description mx-auto mt-8 max-w-2xl text-center text-sm">
+					※季節や仕入れ状況により、内容が変更となる場合がございます。表示価格はすべて税込です。
+				</p>
+
+				{/* ご注文について */}
+				<div class="border-primary-200 mx-auto mt-12 max-w-2xl border-2 px-6 py-8 md:px-10">
+					<p class="font-heading-1 text-center text-lg tracking-wide">ご注文について</p>
+					<ul class="mx-auto mt-4 flex max-w-lg flex-col gap-2">
+						{orderNotes.map((note) => (
+							<li class="flex gap-2 text-sm leading-snug md:text-base">
+								<span class="text-primary-500 shrink-0">■</span>
+								<span>{note}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</>
+		)
+	}
+
+	<div class="mt-12 flex justify-center">
 		{
-			compact && (
-				<Button href="/takeout" variant="outline" arrow="right" class="px-8">
-					メニューをすべて見る
+			compact ? (
+				<Button href="/takeout" variant="outline" class="px-8">
+					お弁当・オードブルを見る
+				</Button>
+			) : (
+				<Button
+					href="https://lin.ee/ngJUcCC"
+					target="_blank"
+					rel="noopener noreferrer"
+					variant="outline"
+					class="px-8"
+				>
+					公式LINEでご注文・お問い合わせ
 				</Button>
 			)
 		}
-		<Button
-			href="https://lin.ee/ngJUcCC"
-			target="_blank"
-			rel="noopener noreferrer"
-			variant="outline"
-			class="px-8"
-		>
-			ご注文・お問い合わせ
-		</Button>
 	</div>
 </section>
