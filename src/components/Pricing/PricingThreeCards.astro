@@ -25,7 +25,8 @@ interface takeoutCategory {
 	nameEn: string;
 	priceFrom: string; // カード下部に大きく出す最低価格
 	image: ImageMetadata;
-	imageCaption: string; // 写真がどの商品かを明示し、価格との食い違いによる誤解を防ぐ
+	// 写真がどの商品かを明示し、カードの「〜円〜」表記との食い違いによる誤解を防ぐ
+	photo: { name: string; price: string };
 	items: menuItem[];
 }
 
@@ -38,7 +39,7 @@ const takeoutData: takeoutCategory[] = [
 		nameEn: "Bento",
 		priceFrom: "1,100",
 		image: bentoImage,
-		imageCaption: "写真：おばんざい弁当 ¥1,320",
+		photo: { name: "おばんざい弁当", price: "¥1,320" },
 		items: [
 			{
 				name: "BLTサンド",
@@ -74,7 +75,7 @@ const takeoutData: takeoutCategory[] = [
 		nameEn: "Hors-d'œuvre",
 		priceFrom: "3,800",
 		image: horsDoeuvreImage,
-		imageCaption: "写真：ミスジステーキと季節野菜のグリルオードブル ¥6,200",
+		photo: { name: "ミスジステーキと季節野菜のグリルオードブル", price: "¥6,200" },
 		items: [
 			{
 				name: "サンドイッチのオードブル",
@@ -141,14 +142,16 @@ const orderNotes = [
 					<div class="aspect-[3/4] h-auto w-full overflow-hidden">
 						<Image
 							src={category.image}
-							alt={category.imageCaption.replace("写真：", "")}
+							alt={`Enleeの${category.photo.name}`}
 							width={450}
 							densities={[1.5, 2]}
 							class="h-full w-full object-cover"
 						/>
 					</div>
 					{/* どの商品の写真かを明示する */}
-					<p class="text-base-900/60 mt-2 text-center text-xs">{category.imageCaption}</p>
+					<p class="text-base-900/60 mt-3 text-center text-xs leading-relaxed">
+						写真は「{category.photo.name}」（{category.photo.price}）です。
+					</p>
 
 					<div class="border-primary-200 mt-3 flex h-full flex-col justify-between border-2 pt-8 pb-8">
 						<div>
