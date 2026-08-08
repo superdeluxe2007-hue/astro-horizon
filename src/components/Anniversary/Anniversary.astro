@@ -1,0 +1,102 @@
+---
+/**
+ * * Anniversary — 誕生日・記念日のご案内
+ * 公式LINEで最も多い問い合わせのひとつ。価格は出さず、写真と案内でご相談につなげる
+ */
+
+import Button from "@components/Button/Button.astro";
+import candleImage from "@assets/images/enlee-birthday-candle.jpg";
+import cakeImage from "@assets/images/enlee-birthday-cake.jpg";
+import plateImage from "@assets/images/enlee-birthday-plate.jpg";
+import { Image } from "astro:assets";
+
+const images = [
+	{ src: plateImage, alt: "メッセージをお書きしたデザートプレート" },
+	{ src: candleImage, alt: "キャンドルを添えたお祝いのプレート" },
+	{ src: cakeImage, alt: "お名前をお入れしたホールケーキ" },
+];
+
+// 出典: 公式LINEの応答メッセージ（2026-08）。原文は税抜のため、サイトの他箇所に合わせて税込（10%）に換算
+const plans = [
+	{
+		name: "スイーツ盛り合わせプレート",
+		price: "¥2,530",
+		description: "人気のスイーツを数種類盛り合わせた、お祝いにぴったりの一皿です。",
+		deadline: "ご利用日の前営業日まで",
+	},
+	{
+		name: "ホールケーキプレート",
+		price: "¥3,630〜",
+		description: "ホールケーキにメッセージをお入れします。",
+		sizes: ["4号（12cm）¥3,630", "5号（15cm）¥4,950", "6号（18cm）¥6,380"],
+		deadline: "ご利用日の3営業日前まで",
+	},
+];
+---
+
+<section id="anniversary" class="site-container scroll-mt-10 py-20 md:py-32">
+	<div class="mx-auto max-w-2xl text-center">
+		<h2 class="h3 text-primary-500 text-pretty uppercase">Anniversary</h2>
+		<h3 class="h2 mt-4">大切な人の、特別な一日に。</h3>
+		<p class="description mt-6 lg:text-lg">
+			お誕生日や記念日には、メッセージをお書きしたデザートプレートや、ホールケーキのご用意も承っています。お渡しするタイミングなど、当日の進め方もあわせてご相談ください。
+		</p>
+	</div>
+
+	<div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 md:mt-16">
+		{
+			images.map((img) => (
+				<div class="aspect-[3/4] overflow-hidden">
+					<Image
+						src={img.src}
+						alt={img.alt}
+						width={450}
+						densities={[1.5, 2]}
+						class="h-full w-full object-cover"
+					/>
+				</div>
+			))
+		}
+	</div>
+
+	<div class="mx-auto mt-16 grid max-w-4xl gap-10 sm:grid-cols-2">
+		{
+			plans.map((plan) => (
+				<div class="border-primary-200 border-2 px-6 py-8 md:px-8">
+					<div class="flex items-baseline justify-between gap-3">
+						<h4 class="font-heading-1 text-lg tracking-wide md:text-xl">{plan.name}</h4>
+						<span class="shrink-0 whitespace-nowrap">{plan.price}</span>
+					</div>
+					<p class="text-base-900/70 mt-3 text-sm leading-snug">{plan.description}</p>
+					{plan.sizes && (
+						<ul class="mt-4 flex flex-col gap-1 text-sm">
+							{plan.sizes.map((size) => (
+								<li>{size}</li>
+							))}
+						</ul>
+					)}
+					<p class="text-base-900/60 mt-5 text-sm">ご予約：{plan.deadline}</p>
+				</div>
+			))
+		}
+	</div>
+
+	<p class="description mx-auto mt-8 max-w-2xl text-center text-sm">
+		メッセージのご希望は、ご予約時の備考欄にお知らせください。（例：Happy Birthday Aya）
+	</p>
+	<p class="text-base-900/60 mx-auto mt-3 max-w-2xl text-center text-sm">
+		※季節によって内容が変わる場合がございます。表示価格はすべて税込です。
+	</p>
+
+	<div class="mt-10 flex justify-center">
+		<Button
+			href="https://lin.ee/ngJUcCC"
+			target="_blank"
+			rel="noopener noreferrer"
+			variant="outline"
+			class="px-8"
+		>
+			公式LINEで相談する
+		</Button>
+	</div>
+</section>

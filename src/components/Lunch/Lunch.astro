@@ -4,7 +4,9 @@
  */
 
 import Button from "@components/Button/Button.astro";
+import obanzaiImage from "@assets/images/enlee-lunch-obanzai.jpg";
 import lunchImage from "@assets/images/enlee-lunch-salad.jpg";
+import pizzaImage from "@assets/images/enlee-pizza-margherita.jpg";
 import { Image } from "astro:assets";
 
 interface Props {
@@ -12,6 +14,12 @@ interface Props {
 }
 
 const { compact = false } = Astro.props as Props;
+
+// 写真がどの料理かを明示し、価格との食い違いによる誤解を防ぐ
+const lunchPhotos = [
+	{ image: obanzaiImage, name: "Enlee食堂のおばんざい定食", price: "¥1,450" },
+	{ image: pizzaImage, name: "ピザ・マルゲリータ", price: "¥1,500" },
+];
 ---
 
 <section id="lunch" class="site-container scroll-mt-10 py-20 md:py-32">
@@ -46,12 +54,38 @@ const { compact = false } = Astro.props as Props;
 			<div class="my-auto aspect-[3/4] w-full overflow-hidden">
 				<Image
 					src={lunchImage}
-					alt="Enleeのランチプレート"
+					alt="Enleeの自家製鶏ハムとアボカドの農園サラダランチ"
 					width={450}
 					densities={[1.5, 2]}
 					class="h-auto min-h-full w-full min-w-full object-cover"
 				/>
 			</div>
+			<p class="text-base-900/60 mt-3 text-center text-xs leading-relaxed">
+				写真は「自家製鶏ハムとアボカドの農園サラダランチ」（¥1,540）です。
+			</p>
 		</div>
 	</div>
+
+	{
+		!compact && (
+			<div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 md:mt-24">
+				{lunchPhotos.map((photo) => (
+					<div>
+						<div class="aspect-[4/3] overflow-hidden">
+							<Image
+								src={photo.image}
+								alt={`Enleeの${photo.name}`}
+								width={450}
+								densities={[1.5, 2]}
+								class="h-full w-full object-cover"
+							/>
+						</div>
+						<p class="text-base-900/60 mt-3 text-center text-xs leading-relaxed">
+							写真は「{photo.name}」（{photo.price}）です。
+						</p>
+					</div>
+				))}
+			</div>
+		)
+	}
 </section>

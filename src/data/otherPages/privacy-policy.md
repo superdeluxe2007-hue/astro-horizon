@@ -1,49 +1,60 @@
 ---
-title: Privacy Policy
-description: Example privacy policy for Blogsmith! The best starter blog template for Astro.
+title: プライバシーポリシー
+description: Enlee（エンリー）公式サイトにおける個人情報の取り扱いについて。当サイトはお問い合わせフォームを設けておらず、アクセス解析にもCookieを使用していません。
 ---
 
-_Last updated on Sep 9, 2023_
+株式会社SPDXは、Enlee（エンリー）公式サイト（enlee-fukuyama.com、以下「当サイト」）における個人情報の取り扱いについて、以下のとおり定めます。
 
-This privacy policy sets out how Example LLC collects, processes, and uses your Personal Information through your use of our Services.
+## 当サイトで取得する情報
 
-**This is purely for example. Please consult a lawyer for your own privacy policy.**
+当サイトには、お問い合わせフォームや会員登録などの入力機能はありません。そのため、お名前やご連絡先などの個人情報を、当サイト上でご入力いただくことはありません。
 
-## Personal Information Collection
+ご閲覧にあたっては、サーバーの運用上、以下の情報が自動的に記録されます。
 
-We only collect and use Personal Information to the extent necessary to provide you with the Services. We collect Personal Information for the Website to provide you with a better online experience.
+- IPアドレス
+- ブラウザの種類・バージョン
+- 閲覧日時および閲覧されたページ
 
-## Personal Information Retention
+これらはサイトの安定した運用と障害の把握のために利用するもので、個人を特定する目的では使用しません。
 
-We keep Personal Information for the shortest time necessary to provide you with Services and to meet all our legal and compliance obligations. To determine this retention period, we take into account (i) the nature of the Personal Information gathered; and (ii) the nature of our legal and compliance obligations. All Personal Information no longer required by us is destroyed and/or erased.
+## アクセス解析について
 
-## Personal Data from Third Parties
+当サイトでは、サイトの改善のために Cloudflare Web Analytics を利用しています。ページの閲覧数、参照元のサイト、ブラウザやOSの種類、おおよその地域といった統計情報を取得します。
 
-We may, from time to time, obtain Personal Information from third parties to enable us to better tailor our Services to you (Third Party Personal Information). When we obtain Third Party Personal Information, we will notify you within one month. If we use or share Third Party Personal Information, we will notify you immediately.
+このツールは **Cookieを使用せず**、個人を特定できる情報の取得や、他のサイトをまたいだ行動の追跡は行いません。また、広告配信を目的としたCookieも使用していません。
 
-## Your Rights
+## ご予約・お問い合わせでお預かりする情報
 
-With respect to Personal Information we hold, you have the following rights:
+お電話・公式LINE・店頭でのご予約やお問い合わせの際に、お名前、ご連絡先、ご来店日時、ご要望などをお伺いすることがあります。お預かりした情報は、次の目的にのみ利用します。
 
-- Access: You may request from us access to your data that we hold on you.
-- Rectification: If the data we hold on you is inaccurate, you may request that we correct it. If the data we hold is incomplete, you may request that we complete it.
-- Erasure: Subject to certain conditions, you may request that we erase all of the data we hold on you.
-- Restrictions: Subject to certain conditions, you may request that we restrict the processing of data we hold on you.
-- Portability: Subject to certain conditions, you may request that we transfer all the data we hold on you to a third party (including yourself).
-- Objection: Subject to certain conditions, you may object to our processing of your data.
+- ご予約の確認・変更に関するご連絡
+- お弁当・オードブル・貸切パーティー等のご相談およびご手配
+- お問い合わせへの回答
 
-## Minors
+法令に基づく場合を除き、ご本人の同意なく第三者へ提供することはありません。
 
-We do not knowingly collect information on children under the age of 16 (“Child”). If you become aware that a Child has provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from a Child without their parent's verifiable authorization to access our Services, we will take steps to remove that information from our servers.
+## 外部サービスへのリンク
 
-## Third Party Links
+当サイトには、Instagram・LINEなど外部サービスへのリンクが含まれます。リンク先で取得される情報の取り扱いについては、各サービスのプライバシーポリシーをご確認ください。
 
-Our website contains links to other third-party websites not owned or managed by Example LLC. This privacy policy applies to this website only. If you click a link to a third-party website, the privacy policy of that website will apply. We highly recommend that you read the privacy policies of other websites as they may be different from ours.
+## 個人情報の管理
 
-## Merger, acquisition, or asset sale
+お預かりした個人情報は、漏えい・滅失・毀損の防止に努め、業務上必要な範囲を超えて保有しないよう管理します。
 
-If Example LLC is involved in a merger, acquisition, or asset sale, your Personal Information may be transferred.
+## 開示・訂正・削除のご請求
 
-## Contact us
+お預かりしている個人情報の開示・訂正・削除をご希望の場合は、下記の窓口までご連絡ください。ご本人であることを確認のうえ、速やかに対応いたします。
 
-If you have any questions or suggestions about our privacy policy or want to know more information about Personal Information we hold, please contact us at support@example.com.
+## 本ポリシーの変更
+
+法令の改正や運用の変更に応じて、本ポリシーの内容を変更する場合があります。変更後の内容は、当サイトに掲載した時点から適用されます。
+
+## お問い合わせ窓口
+
+Enlee（エンリー）／運営：株式会社SPDX
+
+〒720-0812 広島県福山市霞町1-10-2（中央公園内）
+TEL：084-999-7006
+営業時間：11:00–21:00（L.O 20:00）／定休日：火曜日
+
+制定日：2026年8月9日

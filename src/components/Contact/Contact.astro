@@ -66,7 +66,19 @@ import venueImage from "@assets/images/enlee-venue-night.jpg";
 				</div>
 				<div>
 					<dt class="font-heading-1 tracking-wide uppercase">住所</dt>
-					<dd class="mt-2">福山市霞町1-10-2（中央公園内）</dd>
+					<dd class="mt-2">
+						<p>〒720-0812 広島県福山市霞町1-10-2（中央公園内）</p>
+						{/* 埋め込みではなくリンク。外部Cookieを持ち込まず、スマホでは地図アプリが開く */}
+						<a
+							href="https://www.google.com/maps/search/?api=1&query=Enlee+%E7%A6%8F%E5%B1%B1%E5%B8%82%E9%9C%9E%E7%94%BA1-10-2"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="border-primary-300 hover:bg-primary-50 mt-3 inline-flex items-center gap-2 border px-4 py-2 text-base transition"
+						>
+							<Icon name="tabler:map-pin" class="size-5 shrink-0" />
+							<span class="underline underline-offset-4">Googleマップで見る</span>
+						</a>
+					</dd>
 				</div>
 				<div>
 					<dt class="font-heading-1 tracking-wide uppercase">営業時間</dt>
@@ -74,7 +86,18 @@ import venueImage from "@assets/images/enlee-venue-night.jpg";
 				</div>
 				<div>
 					<dt class="font-heading-1 tracking-wide uppercase">アクセス</dt>
-					<dd class="mt-2">専用駐車場はございません。近隣のコインパーキングをご利用ください。</dd>
+					<dd class="mt-2">
+						<p>中央図書館（ローズコム）のとなり、中央公園の中にあります。</p>
+						<p class="mt-2">専用駐車場はございません。近隣のコインパーキングをご利用ください。</p>
+					</dd>
+				</div>
+				<div>
+					<dt class="font-heading-1 tracking-wide uppercase">お子様連れ</dt>
+					<dd class="mt-2">
+						<p>
+							キッズメニュー（カレーライス・オムライスなど）をご用意しています。開放的な店内とテラス席があり、公園の中なので、お食事の前後に外で遊んでいただくこともできます。
+						</p>
+					</dd>
 				</div>
 			</dl>
 		</div>

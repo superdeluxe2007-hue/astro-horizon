@@ -5,8 +5,8 @@
 
 import Button from "@components/Button/Button.astro";
 import fontainebleauImage from "@assets/images/enlee-dessert-fontainebleau.jpg";
-import fruitTartImage from "@assets/images/enlee-fruit-tart.jpg";
-import gelatoImage from "@assets/images/enlee-gelato.jpg";
+import frenchToastImage from "@assets/images/enlee-french-toast-classic.jpg";
+import gateauChocolatImage from "@assets/images/enlee-gateau-chocolat.jpg";
 import { Image } from "astro:assets";
 
 interface Props {
@@ -15,11 +15,13 @@ interface Props {
 
 const { compact = false } = Astro.props as Props;
 
+// 写真がどの商品かを明示し、価格との食い違いによる誤解を防ぐ
 const images = [
-	{ src: fontainebleauImage, alt: "フロマージュブランと季節のフルーツ" },
-	{ src: gelatoImage, alt: "自家製ジェラート" },
-	{ src: fruitTartImage, alt: "季節のフルーツタルト" },
+	{ src: frenchToastImage, name: "クラシックフレンチトースト", price: "¥780" },
+	{ src: fontainebleauImage, name: "フォンティーヌブロー（フロマージュブラン）", price: "¥1,680" },
+	{ src: gateauChocolatImage, name: "ガトーショコラ", price: "¥600" },
 ];
+
 ---
 
 <section id="evening-cafe" class="bg-base-100 scroll-mt-10 py-20 md:py-32">
@@ -28,20 +30,25 @@ const images = [
 			<h2 class="h3 text-primary-500 text-pretty uppercase">Evening Cafe</h2>
 			<h3 class="h2 mt-4">灯りがともる頃、少し特別なデザートタイム。</h3>
 			<p class="description mt-6 lg:text-lg">
-				フレンチトースト、フロマージュブラン、自家製ジェラート。日が暮れて庭に灯りがともる時間は、ワインやシードルを片手にゆっくりとデザートを楽しむひとときに変わります。
+				フレンチトースト、フロマージュブラン、季節のフルーツを使ったデザート。日が暮れて庭に灯りがともる時間は、ワインやシードルを片手にゆっくりとデザートを楽しむひとときに変わります。
 			</p>
 		</div>
 		<div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 md:mt-16">
 			{
 				images.map((img) => (
-					<div class="aspect-[3/4] overflow-hidden">
-						<Image
-							src={img.src}
-							alt={img.alt}
-							width={450}
-							densities={[1.5, 2]}
-							class="h-full w-full object-cover"
-						/>
+					<div>
+						<div class="aspect-[3/4] overflow-hidden">
+							<Image
+								src={img.src}
+								alt={`Enleeの${img.name}`}
+								width={450}
+								densities={[1.5, 2]}
+								class="h-full w-full object-cover"
+							/>
+						</div>
+						<p class="text-base-900/60 mt-3 text-center text-xs leading-relaxed">
+							写真は「{img.name}」（{img.price}）です。
+						</p>
 					</div>
 				))
 			}

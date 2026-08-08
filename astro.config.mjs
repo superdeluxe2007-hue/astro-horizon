@@ -31,6 +31,7 @@ export default defineConfig({
 					"arrow-narrow-right",
 					"menu-2",
 					"x",
+					"map-pin",
 					"chevron-down",
 					"category",
 					"calendar-event",

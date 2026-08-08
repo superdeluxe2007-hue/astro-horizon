@@ -55,8 +55,11 @@ const today = new Date();
 		</div>
 
 		<!-- copyright -->
-		<div class="mt-4 mb-2 text-center text-sm opacity-80">
-			&copy; {today.getFullYear()} {siteData.name}. All rights reserved.
+		<div class="mt-8 flex flex-col items-center gap-2 text-sm opacity-80">
+			<a href="/privacy-policy" class="hover:text-primary-500 underline underline-offset-4 transition">
+				プライバシーポリシー
+			</a>
+			<p class="mb-2">&copy; {today.getFullYear()} {siteData.name}. All rights reserved.</p>
 		</div>
 	</div>
 </footer>
