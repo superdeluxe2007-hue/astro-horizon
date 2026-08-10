@@ -6,7 +6,7 @@ date: "Jun 25 2026"
 location: 団体・交流会・大人数パーティー向け（30名様〜）
 clients: ["おひとり様6,000円（税込・飲み放題付き）"]
 images:
-  [[./buffet-hero.jpg], [./buffet-spread.jpg, ./buffet-finger-food.jpg]]
+  [[./buffet-hero.jpg], [./buffet-spread.jpg, ./buffet-venue-night.jpg]]
 order: 2
 ---
 
