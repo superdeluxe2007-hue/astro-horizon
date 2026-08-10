@@ -12,7 +12,7 @@ interface Props {
 
 const { class: className } = Astro.props as Props;
 
-import venueImage from "@assets/images/enlee-venue-night.jpg";
+import venueImage from "@assets/images/enlee-exterior-day.jpg";
 ---
 
 <section
@@ -29,7 +29,7 @@ import venueImage from "@assets/images/enlee-venue-night.jpg";
 			<div class="mx-auto mt-10 aspect-square overflow-hidden">
 				<Image
 					src={venueImage}
-					alt="Enlee外観"
+					alt="Enlee 外観。中央公園の緑に面した入口"
 					width={450}
 					densities={[1.5, 2]}
 					class="h-full w-full object-cover"
