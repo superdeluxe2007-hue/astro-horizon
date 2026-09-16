@@ -24,7 +24,7 @@ import venueImage from "@assets/images/enlee-exterior-day.jpg";
 	<div class="mt-4 grid gap-y-14 md:mt-0 md:grid-cols-2">
 		<div class="border-primary-300 pt-10 md:border-r md:pr-20 md:pl-12">
 			<p class="description text-lg">
-				お席のご予約はネット予約から。貸切パーティーやお弁当のご相談は、お電話または公式LINEからお気軽にお問い合わせください。
+				お席のご予約（8名様まで）はネット予約から。9名様以上のご宴会・貸切・BBQ、お弁当・オードブルのご相談は、公式LINEまたはお電話でお気軽にどうぞ。
 			</p>
 			<div class="mx-auto mt-10 aspect-square overflow-hidden">
 				<Image
@@ -37,31 +37,37 @@ import venueImage from "@assets/images/enlee-exterior-day.jpg";
 			</div>
 		</div>
 		<div class="md:pr-12 md:pl-20">
-			{/* 席のご予約はネット予約が主。最も直接的な導線として先頭に置く */}
+			{/* 入口で分ける: お席（8名様まで）＝ebica／9名様以上・貸切・BBQ・お弁当＝公式LINE。2本とも同じ重さで置く */}
 			<a
 				href="https://booking.ebica.jp/webrsv/search/e014121101/29492"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="bg-primary-200 hover:bg-primary-300 mt-10 flex items-center justify-center gap-3 px-6 py-4 text-lg font-medium transition"
+				class="bg-primary-200 hover:bg-primary-300 mt-10 flex flex-col items-center justify-center gap-1 px-6 py-4 transition"
 			>
-				<Icon name="tabler:calendar" class="size-6 shrink-0" />
-				<span class="underline underline-offset-4">ネットで席を予約する</span>
+				<span class="flex items-center gap-3 text-lg font-medium">
+					<Icon name="tabler:calendar" class="size-6 shrink-0" />
+					<span class="underline underline-offset-4">お席のご予約（8名様まで）</span>
+				</span>
+				<span class="text-sm">ネット予約はこちら</span>
+			</a>
+			<a
+				href="https://lin.ee/ngJUcCC"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="bg-primary-200 hover:bg-primary-300 mt-4 flex flex-col items-center justify-center gap-1 px-6 py-4 transition"
+			>
+				<span class="flex items-center gap-3 text-lg font-medium">
+					<Icon name="socials/line" class="size-6 shrink-0" />
+					<span class="underline underline-offset-4">貸切・BBQ・お弁当のご相談</span>
+				</span>
+				<span class="text-sm">9名様以上のご予約は公式LINEへ</span>
 			</a>
 			<div class="flex flex-col gap-4 pt-4 sm:flex-row">
-				<a
-					href="https://lin.ee/ngJUcCC"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="border-primary-300 hover:bg-primary-50 flex items-center justify-center gap-3 border px-6 py-4 text-lg font-medium transition"
-				>
-					<Icon name="socials/line" class="size-6 shrink-0" />
-					<span class="underline underline-offset-4">LINEでお問い合わせ</span>
-				</a>
 				<a
 					href="https://www.instagram.com/enlee_fukuyama/"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="border-primary-300 hover:bg-primary-50 flex items-center justify-center gap-3 border px-6 py-4 text-lg font-medium transition"
+					class="border-primary-300 hover:bg-primary-50 flex flex-1 items-center justify-center gap-3 border px-6 py-4 text-lg font-medium transition"
 				>
 					<Icon name="socials/basil-instagram-solid" class="size-6 shrink-0" />
 					<span class="underline underline-offset-4">Instagramをフォロー</span>
