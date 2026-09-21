@@ -11,14 +11,23 @@ export interface Props {
 	description: string;
 	image?: ImageMetadata;
 	noindex?: boolean;
+	/** ページ固有の構造化データ（例: FAQページの FAQPage）。表示内容と一致するものだけ渡す */
+	schemas?: unknown[];
 }
 
-const { type = "general", title, description, image, noindex = false } = Astro.props as Props;
+const {
+	type = "general",
+	title,
+	description,
+	image,
+	noindex = false,
+	schemas = [],
+} = Astro.props as Props;
 
 // 構造化データ（JSON-LD）。Restaurant はトップページのみ、WebSite は全ページに出す。
 // 🔴 値はサイト上に表示している情報だけで構成する（→ src/lib/structured-data.ts）
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
-const jsonLd = graph(isHome ? restaurantSchema() : null, webSiteSchema());
+const jsonLd = graph(isHome ? restaurantSchema() : null, webSiteSchema(), ...schemas);
 
 import CinzelDecorative from "@fontsource/cinzel-decorative/files/cinzel-decorative-latin-400-normal.woff2";
 import PlayfairDisplayVariable from "@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2";

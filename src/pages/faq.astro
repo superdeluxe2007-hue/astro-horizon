@@ -1,0 +1,47 @@
+---
+import { FAQ } from "@/data/faq";
+import { faqSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+// 🔴 表示と構造化データは同じ FAQ 配列から作る（片方だけずれないようにする）
+const schemas = [faqSchema(FAQ)];
+---
+
+<BaseLayout
+	title="よくあるご質問"
+	description="Enlee（エンリー）へよくお寄せいただくご質問。駐車場・ご予約・ペットのご同伴・お子様連れ・テイクアウト・貸切・お弁当・お支払い方法についてお答えします。"
+	schemas={schemas}
+>
+	<section class="mx-auto max-w-3xl px-4 pt-24 md:pt-36">
+		<h1 class="h1 description text-center">よくあるご質問</h1>
+		<p class="description mt-6 text-center">
+			ご来店前によくお寄せいただくご質問をまとめました。<br class="hidden md:inline" />
+			こちらにないことは、お電話または公式LINEでお気軽にお尋ねくださいませ。
+		</p>
+
+		<dl class="mt-12 md:mt-16">
+			{
+				FAQ.map((item) => (
+					<div class="border-base-200 border-t py-6 last:border-b">
+						<dt class="font-heading-1 text-lg md:text-xl">{item.q}</dt>
+						<dd class="description mt-3">{item.a}</dd>
+					</div>
+				))
+			}
+		</dl>
+
+		<div class="mt-12 flex flex-col items-center gap-4 md:flex-row md:justify-center">
+			<a class="button button--primary gap-2" href="/#contact">
+				<span>ご予約・お問い合わせ</span>
+			</a>
+			<a
+				class="button button--outline gap-2"
+				href="https://lin.ee/ngJUcCC"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<span>公式LINEで相談する</span>
+			</a>
+		</div>
+	</section>
+</BaseLayout>

@@ -14,6 +14,7 @@ interface Props {
 	description: string;
 	heroImage?: ImageMetadata;
 	noindex?: boolean; // you need to opt-in to no indexing, as it hides the page from search engines
+	schemas?: unknown[]; // ページ固有の構造化データ（BaseHead へ渡す）
 }
 
 const {
@@ -23,6 +24,7 @@ const {
 	description,
 	heroImage,
 	noindex = false,
+	schemas = [],
 } = Astro.props as Props;
 ---
 
@@ -35,6 +37,7 @@ const {
 			description={description}
 			image={heroImage ? heroImage : undefined}
 			noindex={noindex}
+			schemas={schemas}
 		/>
 	</head>
 	<body id="body" class="bg-base-50 text-base-900">
