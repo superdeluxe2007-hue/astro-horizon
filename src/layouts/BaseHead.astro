@@ -3,6 +3,7 @@ import Seo from "@components/Seo/Seo.astro";
 import siteData from "@config/siteData.json";
 import { type CollectionEntry } from "astro:content";
 import { ClientRouter } from "astro:transitions";
+import { graph, restaurantSchema, webSiteSchema } from "@/lib/structured-data";
 
 export interface Props {
 	type?: "general" | undefined;
@@ -14,6 +15,11 @@ export interface Props {
 
 const { type = "general", title, description, image, noindex = false } = Astro.props as Props;
 
+// 構造化データ（JSON-LD）。Restaurant はトップページのみ、WebSite は全ページに出す。
+// 🔴 値はサイト上に表示している情報だけで構成する（→ src/lib/structured-data.ts）
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const jsonLd = graph(isHome ? restaurantSchema() : null, webSiteSchema());
+
 import CinzelDecorative from "@fontsource/cinzel-decorative/files/cinzel-decorative-latin-400-normal.woff2";
 import PlayfairDisplayVariable from "@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2";
 import RalewayVariable from "@fontsource-variable/raleway/files/raleway-latin-wght-normal.woff2";
@@ -21,7 +27,7 @@ import WorkSansVariable from "@fontsource-variable/work-sans/files/work-sans-lat
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width" initial-scale="1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- local font preload for better performance when not using ClientRouter -->
 <link rel="preload" href={WorkSansVariable} as="font" type="font/woff2" crossorigin="anonymous" />
@@ -47,6 +53,9 @@ import WorkSansVariable from "@fontsource-variable/work-sans/files/work-sans-lat
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <Seo type={type} title={title} description={description} image={image} noindex={noindex} />
+
+<!-- 構造化データ（JSON-LD）: AI検索・リッチリザルト向け -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 
 <!-- no fallback as I saw issues with firefox fallback -->
 {siteData.useViewTransitions && <ClientRouter fallback="none" />}

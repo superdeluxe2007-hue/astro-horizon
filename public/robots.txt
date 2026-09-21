@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
+
 Sitemap: https://enlee-fukuyama.com/sitemap-index.xml

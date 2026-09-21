@@ -66,8 +66,10 @@ const imageUrl =
 		},
 	}}
 	twitter={{
-		site: "@" + siteData.author.twitter,
-		creator: "@" + siteData.author.twitter,
+		// アカウント未設定のときに "@" だけのタグを出さない
+		...(siteData.author.twitter
+			? { site: "@" + siteData.author.twitter, creator: "@" + siteData.author.twitter }
+			: {}),
 		card: "summary_large_image",
 		title: title,
 		description: description,

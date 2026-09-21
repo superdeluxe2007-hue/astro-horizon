@@ -39,9 +39,21 @@ export default defineConfig({
 				],
 			},
 		}),
-		sitemap(),
+		sitemap({
+			// 更新日を出す。無いと検索・AI側で「鮮度が判定できない」状態になるため
+			serialize(item) {
+				item.lastmod = new Date().toISOString();
+				return item;
+			},
+		}),
 		compress({
-			HTML: true,
+			// 属性の引用符を残す。外した状態だと、簡易パーサー（LLMO診断ツール等）が
+			// 日本語の content 値を読み落とす事例があったため（2026-09-21 実測）
+			HTML: {
+				"html-minifier-terser": {
+					removeAttributeQuotes: false,
+				},
+			},
 			JavaScript: true,
 			CSS: false,
 			Image: false, // astro:assets handles this. Enabling this can dramatically increase build times
