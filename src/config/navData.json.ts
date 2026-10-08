@@ -38,6 +38,11 @@ const navConfig: navItem[] = [
 			},
 		],
 	},
+	{
+		// 横幅が苦しいので短く。ページ側の見出しは「営業カレンダー」
+		text: "カレンダー",
+		link: "/calendar",
+	},
 ];
 
 export default navConfig;
