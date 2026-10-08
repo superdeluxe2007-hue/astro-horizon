@@ -13,6 +13,11 @@ interface Props {
 
 const { compact = false } = Astro.props as Props;
 
+// 見出しの階層: ホーム（compact）はページの h1 が Hero にあるので h2／h3。
+// 専用ページではこのセクションがページ本体なので h1／h2 に繰り上げる。見た目は class で固定。
+const Eyebrow = compact ? "h2" : "h1";
+const Heading = compact ? "h3" : "h2";
+
 interface menuItem {
 	name: string;
 	price: string;
@@ -128,8 +133,8 @@ const orderNotes = [
 
 <section id="pricing" class="mx-auto max-w-6xl scroll-mt-10 px-4 py-20 md:py-32">
 	<div class="mx-auto max-w-6xl text-center">
-		<h2 class="h3 text-primary-500 text-pretty uppercase">Takeout</h2>
-		<h3 class="h2 mt-4">おうちでも、Enleeの味を。</h3>
+		<Eyebrow class="h3 text-primary-500 text-pretty uppercase">Takeout</Eyebrow>
+		<Heading class="h2 mt-4">おうちでも、Enleeの味を。</Heading>
 		<p class="description mx-auto mt-4 max-w-xl">
 			ご自宅や職場、イベントでも楽しめるお弁当・オードブルをご用意しました。大切な方との集まりや特別なシーンにぴったりです。
 		</p>

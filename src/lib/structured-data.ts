@@ -42,7 +42,15 @@ export const restaurantSchema = () => ({
 	priceRange: "¥1,000〜2,000",
 	acceptsReservations: "https://booking.ebica.jp/webrsv/search/e014121101/29492",
 	hasMenu: absolute("/lunch/"),
-	sameAs: ["https://www.instagram.com/enlee_fukuyama/"],
+	// お問い合わせ欄に出している Google マップのリンクと同じもの。
+	// Googleビジネスプロフィールと HP を結び付け、AI検索（AI Overview・ChatGPT 等）が
+	// 同じ店だと判定できるようにする。place_id は GBP API で確定した値。
+	hasMap: "https://www.google.com/maps/place/?q=place_id:ChIJj8ELtpMRUTUR7TeiSQD5ig8",
+	sameAs: [
+		"https://www.instagram.com/enlee_fukuyama/",
+		"https://lin.ee/ngJUcCC",
+		"https://www.google.com/maps/place/?q=place_id:ChIJj8ELtpMRUTUR7TeiSQD5ig8",
+	],
 });
 
 /** サイト全体を表す WebSite。全ページで使う。 */

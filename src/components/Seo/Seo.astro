@@ -16,6 +16,10 @@ interface GenProps extends BaseProps {
 
 const { title = "general", description, image, noindex = false } = Astro.props as GenProps;
 
+// 下層ページの title は「ランチ」のように短く渡されるため、検索結果でどこの店か分かるよう
+// 屋号と場所を添える。トップ（title がサイト名そのもの）は二重にしない。
+const pageTitle = title === siteData.title ? title : `${title}｜${siteData.titleSuffix}`;
+
 let optimizedImage;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
@@ -43,12 +47,12 @@ const imageUrl =
 ---
 
 <SEO
-	title={title}
+	title={pageTitle}
 	description={description}
 	canonical={canonicalUrl.toString()}
 	openGraph={{
 		basic: {
-			title: title,
+			title: pageTitle,
 			type: "website",
 			image: imageUrl,
 			url: canonicalUrl.toString(),
@@ -71,7 +75,7 @@ const imageUrl =
 			? { site: "@" + siteData.author.twitter, creator: "@" + siteData.author.twitter }
 			: {}),
 		card: "summary_large_image",
-		title: title,
+		title: pageTitle,
 		description: description,
 		image: imageUrl,
 	}}

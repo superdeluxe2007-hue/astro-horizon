@@ -24,8 +24,8 @@
 | 金額 | **`¥1,500（税込）`**（`税込¥1,500` `1,500円` は使わない） |
 | L.O.の時刻 | **省略しない**（`（L.O）` だけでは何時までに入ればよいか伝わらない） |
 
-> ⚠️ **現在このリポジトリの表記は正本とズレている**（`11:00–21:00（L.O 20:00）` 等）。
-> 該当は `src/components/Contact/Contact.astro` / `src/components/Lunch/Lunch.astro` / `src/pages/lunch.astro` / `src/data/otherPages/privacy-policy.md`。触るついでに直す。
+> ✅ **2026-10-08 に表記ズレは解消済み**（`11:00–21:00（L.O 20:00）` 等は全滅）。
+> 検査コマンド: `grep -rn -E "L\.O[^.]|11:00–|11:00-|11:00～|21:30|税込¥|[0-9]円|￥" src/`（何も出なければ正常）
 
 **色コードの正本は `src/styles/tailwind-theme.css`。** Wiki側には転記していないので、値はここを見る。
 

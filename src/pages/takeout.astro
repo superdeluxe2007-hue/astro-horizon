@@ -2,11 +2,14 @@
 import Contact from "@components/Contact/Contact.astro";
 import PricingThreeCards from "@components/Pricing/PricingThreeCards.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+// OGP画像。既定の夜の外観ではなく、そのページの料理が出るようにする
+import ogImage from "@assets/images/enlee-bento-obanzai.jpg";
 ---
 
 <BaseLayout
 	title="お弁当・オードブル"
 	description="ご自宅や職場、イベントでも楽しめるEnleeのお弁当・オードブル。BLTサンド¥1,100〜、オードブル¥3,800〜。お弁当・オードブルのご注文は6営業日前まで、お電話または公式LINEにて承ります。"
+	heroImage={ogImage}
 >
 	<div class="pt-10 md:pt-16">
 		<PricingThreeCards />

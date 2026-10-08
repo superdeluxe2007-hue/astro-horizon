@@ -12,13 +12,18 @@ interface Props {
 }
 
 const { compact = false } = Astro.props as Props;
+
+// 見出しの階層: ホーム（compact）はページの h1 が Hero にあるので h2／h3。
+// 専用ページではこのセクションがページ本体なので h1／h2 に繰り上げる。見た目は class で固定。
+const Eyebrow = compact ? "h2" : "h1";
+const Heading = compact ? "h3" : "h2";
 ---
 
 <section id="concept" class="site-container scroll-mt-10 py-20 md:py-32">
 	<div class="flex flex-col md:flex-row">
 		<div class="md:w-2/3 md:pr-16">
-			<h2 class="h3 text-primary-500 text-pretty uppercase">Concept</h2>
-			<h3 class="h2 mt-4">緑の中で、丁寧な時間を。</h3>
+			<Eyebrow class="h3 text-primary-500 text-pretty uppercase">Concept</Eyebrow>
+			<Heading class="h2 mt-4">緑の中で、丁寧な時間を。</Heading>
 			<div class="mt-8 lg:text-lg">
 				<p>
 					ロンドンの「ピーターシャム・ナーサリーズ」に着想を得て、2021年に中央公園の中にオープンしたガーデンレストランです。大きな窓から差し込む光、風に揺れる木々、季節ごとに表情を変える庭。そんな景色に囲まれて過ごす時間そのものを、大切な一皿として届けたいと思っています。
