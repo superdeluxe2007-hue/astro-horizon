@@ -98,7 +98,17 @@ import venueImage from "@assets/images/enlee-exterior-day.jpg";
 				</div>
 				<div>
 					<dt class="font-heading-1 tracking-wide uppercase">営業時間</dt>
-					<dd class="mt-2">11:00〜21:00（L.O.20:00）／定休日：火曜日</dd>
+					<dd class="mt-2">
+						11:00〜21:00（L.O.20:00）／定休日：火曜日
+						{/* 貸切・臨時休業がある日はカレンダー側に出す。「今日やってる？」への入口 */}
+						<a
+							href="/calendar"
+							class="border-primary-300 hover:bg-primary-50 mt-3 inline-flex items-center gap-2 border px-4 py-2 text-base transition"
+						>
+							<Icon name="tabler:calendar" class="size-5 shrink-0" />
+							<span class="underline underline-offset-4">今月の営業カレンダー</span>
+						</a>
+					</dd>
 				</div>
 				<div>
 					<dt class="font-heading-1 tracking-wide uppercase">ランチのご予約</dt>
