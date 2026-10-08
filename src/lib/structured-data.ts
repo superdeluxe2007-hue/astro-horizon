@@ -1,4 +1,5 @@
 import siteData from "@config/siteData.json";
+import type { CalendarMonth } from "@/data/calendar";
 
 const SITE_URL = "https://enlee-fukuyama.com";
 
@@ -63,6 +64,36 @@ export const webSiteSchema = () => ({
 	inLanguage: "ja",
 	publisher: { "@id": `${SITE_URL}/#restaurant` },
 });
+
+/**
+ * 営業カレンダーの「いつもと違う日」を specialOpeningHoursSpecification にする。
+ * 同じ @id の Restaurant に重ねる（schema.org は同一 @id のノードをマージする）。
+ * 🔴 カレンダーのページに表示している日だけを出す。時間を書いていない日（通常営業）は含めない。
+ */
+export const specialHoursSchema = (months: CalendarMonth[]) => {
+	const pad = (n: number) => String(n).padStart(2, "0");
+	const spec = months.flatMap((m) =>
+		m.days
+			.filter((d) => d.hours)
+			.map((d) => {
+				const date = `${m.year}-${pad(m.month)}-${pad(d.day)}`;
+				const h = d.hours === "closed" ? { opens: "00:00", closes: "00:00" } : d.hours!;
+				return {
+					"@type": "OpeningHoursSpecification",
+					opens: h.opens,
+					closes: h.closes,
+					validFrom: date,
+					validThrough: date,
+				};
+			})
+	);
+	if (spec.length === 0) return null;
+	return {
+		"@type": "Restaurant",
+		"@id": `${SITE_URL}/#restaurant`,
+		specialOpeningHoursSpecification: spec,
+	};
+};
 
 /** パンくず。items は [{ label, to }]。 */
 export const breadcrumbSchema = (items: { label: string; to?: string }[] = []) => ({

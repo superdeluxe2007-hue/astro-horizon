@@ -1,0 +1,28 @@
+---
+import CalendarSection from "@components/Calendar/Calendar.astro";
+import Contact from "@components/Contact/Contact.astro";
+import { CALENDAR, CLOSED_LABEL, HOURS_LABEL } from "@/data/calendar";
+import { specialHoursSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+// OGP画像。既定の夜の外観ではなく、庭の見える店内を出す
+import ogImage from "@assets/images/enlee-interior-day.jpg";
+
+// 🔴 表示している「いつもと違う日」だけを構造化データに入れる（→ src/lib/structured-data.ts）
+const schemas = [specialHoursSchema(CALENDAR)].filter(Boolean);
+
+const different = CALENDAR.flatMap((m) => m.days.map((d) => `${m.month}/${d.day} ${d.title}`));
+const description =
+	`Enlee（エンリー）の営業カレンダー。通常は ${HOURS_LABEL}／${CLOSED_LABEL}。` +
+	(different.length > 0
+		? `いつもと違う日は ${different.join("、")}。`
+		: "いまのところ、いつもどおりの営業です。") +
+	"貸切・ご宴会・BBQ のご相談は公式LINEへどうぞ。";
+---
+
+<BaseLayout title="営業カレンダー" description={description} heroImage={ogImage} schemas={schemas}>
+	<div class="pt-24 md:pt-36">
+		<CalendarSection />
+	</div>
+
+	<Contact class="mt-12" />
+</BaseLayout>
