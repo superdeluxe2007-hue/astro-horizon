@@ -1,18 +1,22 @@
 ---
 /**
- * * 営業カレンダー（お客様向け・A案 = グリッド ＋ いつもと違う日のリスト）
+ * * 営業カレンダー（お客様向け・月グリッド ＋「いつもと違う日」リスト）
  *
  * 中身は src/data/calendar.ts。このファイルは毎月触らない。
+ *
  * 設計の意図:
  *  - いちばん多い疑問は「今日やってる？」なので、最初に今日の状態を出す（JSで毎日自動）
  *  - 画像ではなく文字で作る。Google と AI 検索が中身を読める
  *  - 制限からではなく、できることから書く（→ LLM-wiki brand/enlee §1）
+ *  - 🔑 **更新が止まっても嘘をつかない。** 静的サイトなので月は勝手に変わらない。
+ *     そこでデータにある月を全部出しておき、今日に合う月だけをブラウザ側で残す。
+ *     合う月が無ければカレンダーごと引っ込み、通常営業の案内だけが残る。
  */
 
-import { CLOSED_LABEL, HOURS_LABEL, LUNCH_LABEL, currentMonth } from "@/data/calendar";
+import { CALENDAR, CLOSED_LABEL, HOURS_LABEL, LUNCH_LABEL } from "@/data/calendar";
 
 interface Props {
-	/** トップページ用のダイジェスト表示。見出しを h2 に下げ、リストを3件までにする */
+	/** トップページ用のダイジェスト。見出しを1段下げ、リストを3件までにする */
 	compact?: boolean;
 	class?: string;
 }
@@ -21,30 +25,10 @@ const { compact = false, class: className = "" } = Astro.props as Props;
 
 const Eyebrow = compact ? "h2" : "h1";
 const Heading = compact ? "h3" : "h2";
-
-const m = currentMonth();
-const byDay = new Map(m.days.map((d) => [d.day, d]));
+const MonthHeading = compact ? "h4" : "h3";
 
 const WD = ["日", "月", "火", "水", "木", "金", "土"];
-const lastDay = new Date(m.year, m.month, 0).getDate();
-/** 月曜始まりの先頭空白数 */
-const lead = (new Date(m.year, m.month - 1, 1).getDay() + 6) % 7;
-
-type Cell = { day: number; tone: string; cell: string } | null;
-const cells: Cell[] = [
-	...Array.from({ length: lead }, () => null),
-	...Array.from({ length: lastDay }, (_, i) => {
-		const day = i + 1;
-		const hit = byDay.get(day);
-		if (hit) return { day, tone: hit.tone, cell: hit.cell };
-		const isClosed = new Date(m.year, m.month - 1, day).getDay() === m.closedWeekday;
-		return { day, tone: isClosed ? "off" : "", cell: isClosed ? "定休" : "" };
-	}),
-];
-while (cells.length % 7 !== 0) cells.push(null);
-const weeks = Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
-
-const list = compact ? m.days.slice(0, 3) : m.days;
+const pad = (n: number) => String(n).padStart(2, "0");
 
 const toneCell: Record<string, string> = {
 	star: "bg-primary-700 text-base-50",
@@ -53,20 +37,48 @@ const toneCell: Record<string, string> = {
 	"": "bg-white",
 };
 
-/** 「今日」の判定に使う最小限のデータだけを渡す（本文に出していない情報は渡さない） */
+/** 月ごとに、グリッドの行と表示するリストを組み立てる */
+const months = CALENDAR.map((m) => {
+	const byDay = new Map(m.days.map((d) => [d.day, d]));
+	const lastDay = new Date(m.year, m.month, 0).getDate();
+	/** 月曜始まりの先頭空白数 */
+	const lead = (new Date(m.year, m.month - 1, 1).getDay() + 6) % 7;
+
+	type Cell = { day: number; tone: string; cell: string } | null;
+	const cells: Cell[] = [
+		...Array.from({ length: lead }, () => null),
+		...Array.from({ length: lastDay }, (_, i) => {
+			const day = i + 1;
+			const hit = byDay.get(day);
+			if (hit) return { day, tone: hit.tone, cell: hit.cell };
+			const isClosed = new Date(m.year, m.month - 1, day).getDay() === m.closedWeekday;
+			return { day, tone: isClosed ? "off" : "", cell: isClosed ? "定休" : "" };
+		}),
+	];
+	while (cells.length % 7 !== 0) cells.push(null);
+
+	return {
+		...m,
+		key: `${m.year}-${pad(m.month)}`,
+		weeks: Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7)),
+		list: compact ? m.days.slice(0, 3) : m.days,
+	};
+});
+
+/** 「今日」の判定に使うデータ。本文に出していない情報は渡さない */
 const todayData = {
-	year: m.year,
-	month: m.month,
-	closedWeekday: m.closedWeekday,
 	hoursLabel: HOURS_LABEL,
-	lunchLabel: LUNCH_LABEL,
-	days: m.days.map((d) => ({ day: d.day, title: d.title, note: d.note ?? "", tone: d.tone })),
+	months: CALENDAR.map((m) => ({
+		key: `${m.year}-${pad(m.month)}`,
+		closedWeekday: m.closedWeekday,
+		days: m.days.map((d) => ({ day: d.day, title: d.title, note: d.note ?? "", tone: d.tone })),
+	})),
 };
 ---
 
 <section id="calendar" class:list={["site-container scroll-mt-10", className]}>
 	<Eyebrow class="h3 text-primary-500 text-pretty uppercase">Calendar</Eyebrow>
-	<Heading class="h2 mt-4 lining-nums">{m.year}年 {m.month}月の営業</Heading>
+	<Heading class="h2 mt-4">営業カレンダー</Heading>
 
 	<p class="description mt-4">
 		ふだんは <span class="text-primary-700">{HOURS_LABEL}</span>／{CLOSED_LABEL}<br />
@@ -84,129 +96,146 @@ const todayData = {
 		<p class="description mt-1 text-sm" id="cal-today-detail"></p>
 	</div>
 
-	<div class="mt-8 lg:flex lg:gap-12">
-		{/* ---- グリッド ---- */}
-		<div class="lg:w-1/2">
-			<div class="border-base-200 border-t border-l">
-				<div class="grid grid-cols-7">
-					{
-						["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
-							<div class="font-heading-1 border-base-200 text-primary-500 border-r border-b bg-white/60 py-1 text-center text-xs tracking-widest">
-								{d}
-							</div>
-						))
-					}
-				</div>
-				{
-					weeks.map((week) => (
-						<div class="grid grid-cols-7">
-							{week.map((c) =>
-								c === null ? (
-									<div class="border-base-200 min-h-[3rem] border-r border-b bg-white/40" />
-								) : (
-									<div
-										class:list={[
-											"border-base-200 min-h-[3rem] border-r border-b px-0.5 pt-1 pb-0.5 text-center",
-											toneCell[c.tone],
-										]}
-									>
-										<div class="font-heading-1 text-base leading-none lining-nums tabular-nums">{c.day}</div>
-										{c.cell && <div class="mt-0.5 text-[0.6rem] leading-tight">{c.cell}</div>}
+	{
+		months.map((m) => (
+			<div class="cal-month mt-10" data-cal-month={m.key}>
+				<MonthHeading class="font-heading-1 text-primary-700 lining-nums text-xl">
+					{m.year}年 {m.month}月
+				</MonthHeading>
+
+				<div class="mt-4 lg:flex lg:gap-12">
+					{/* ---- グリッド ---- */}
+					<div class="lg:w-1/2">
+						<div class="border-base-200 border-t border-l">
+							<div class="grid grid-cols-7">
+								{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
+									<div class="font-heading-1 border-base-200 text-primary-500 border-r border-b bg-white/60 py-1 text-center text-xs tracking-widest">
+										{d}
 									</div>
-								)
-							)}
-						</div>
-					))
-				}
-			</div>
-
-			<div class="description mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-				<span class="flex items-center gap-1.5">
-					<i class="bg-primary-700 inline-block size-3"></i>来てほしい日
-				</span>
-				<span class="flex items-center gap-1.5">
-					<i class="bg-primary-50 border-base-200 inline-block size-3 border"></i>一部ご案内できます
-				</span>
-				<span class="flex items-center gap-1.5">
-					<i class="bg-base-100 border-base-200 inline-block size-3 border"></i>ご来店いただけません
-				</span>
-			</div>
-		</div>
-
-		{/* ---- いつもと違う日 ---- */}
-		<div class="mt-8 lg:mt-0 lg:w-1/2">
-			<h3 class="font-heading-1 border-primary-200 text-primary-700 border-b pb-2 text-lg">
-				いつもと違う日
-			</h3>
-			{
-				list.length === 0 ? (
-					<p class="description mt-4 text-sm">
-						今月は、いつもどおりの営業です。火曜日は定休日をいただいております。
-					</p>
-				) : (
-					<dl>
-						{list.map((d) => (
-							<div class="flex gap-3 border-b border-base-100 py-2.5">
-								<dt class="w-10 shrink-0 text-center">
-									<span
-										class:list={[
-											"font-heading-1 block text-xl leading-none lining-nums tabular-nums",
-											d.tone === "star" ? "text-primary-700" : "",
-											d.tone === "off" ? "text-base-400" : "",
-										]}
-									>
-										{d.day}
-									</span>
-									<span class="description block text-[0.65rem]">
-										{WD[new Date(m.year, m.month - 1, d.day).getDay()]}
-									</span>
-								</dt>
-								<dd>
-									<span class="block font-medium">
-										{d.tone === "star" && <span class="text-primary-700">★ </span>}
-										{d.title}
-									</span>
-									{d.note && <span class="description mt-0.5 block text-sm">{d.note}</span>}
-								</dd>
+								))}
 							</div>
-						))}
-					</dl>
-				)
-			}
+							{m.weeks.map((week) => (
+								<div class="grid grid-cols-7">
+									{week.map((c) =>
+										c === null ? (
+											<div class="border-base-200 min-h-[3rem] border-r border-b bg-white/40" />
+										) : (
+											<div
+												class:list={[
+													"border-base-200 min-h-[3rem] border-r border-b px-0.5 pt-1 pb-0.5 text-center",
+													toneCell[c.tone],
+												]}
+											>
+												<div class="font-heading-1 lining-nums text-base leading-none tabular-nums">
+													{c.day}
+												</div>
+												{c.cell && (
+													<div class="mt-0.5 text-[0.58rem] leading-tight">{c.cell}</div>
+												)}
+											</div>
+										)
+									)}
+								</div>
+							))}
+						</div>
 
-			{m.footnote && <p class="description mt-4 text-sm">{m.footnote}</p>}
+						<div class="description mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+							<span class="flex items-center gap-1.5">
+								<i class="bg-primary-700 inline-block size-3" />
+								来てほしい日
+							</span>
+							<span class="flex items-center gap-1.5">
+								<i class="bg-primary-50 border-base-200 inline-block size-3 border" />
+								一部ご案内できます
+							</span>
+							<span class="flex items-center gap-1.5">
+								<i class="bg-base-100 border-base-200 inline-block size-3 border" />
+								ご来店いただけません
+							</span>
+						</div>
+					</div>
 
-			<p class="description mt-4 text-sm">
-				★＝来てほしい日　／　※＝ご注意<br />
-				貸切・ご宴会・BBQ のご相談は公式LINEへどうぞ。
-			</p>
-
-			<div class="mt-5 flex flex-col gap-3 sm:flex-row">
-				<a
-					class="button button--primary flex-1 gap-2"
-					href="https://booking.ebica.jp/webrsv/search/e014121101/29492"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<span>お席を予約する</span>
-				</a>
-				<a
-					class="button button--outline flex-1 gap-2"
-					href="https://lin.ee/ngJUcCC"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<span>LINEで相談する</span>
-				</a>
+					{/* ---- いつもと違う日 ---- */}
+					<div class="mt-8 lg:mt-0 lg:w-1/2">
+						<h4 class="font-heading-1 border-primary-200 text-primary-700 border-b pb-2 text-lg">
+							いつもと違う日
+						</h4>
+						{m.list.length === 0 ? (
+							<p class="description mt-4 text-sm">
+								この月は、いつもどおりの営業です。火曜日は定休日をいただいております。
+							</p>
+						) : (
+							<dl>
+								{m.list.map((d) => (
+									<div class="border-base-100 flex gap-3 border-b py-2.5">
+										<dt class="w-10 shrink-0 text-center">
+											<span
+												class:list={[
+													"font-heading-1 lining-nums block text-xl leading-none tabular-nums",
+													d.tone === "star" ? "text-primary-700" : "",
+													d.tone === "off" ? "text-base-400" : "",
+												]}
+											>
+												{d.day}
+											</span>
+											<span class="description block text-[0.65rem]">
+												{WD[new Date(m.year, m.month - 1, d.day).getDay()]}
+											</span>
+										</dt>
+										<dd>
+											<span class="block font-medium">
+												{d.tone === "star" && <span class="text-primary-700">★ </span>}
+												{d.title}
+											</span>
+											{d.note && <span class="description mt-0.5 block text-sm">{d.note}</span>}
+										</dd>
+									</div>
+								))}
+							</dl>
+						)}
+						{m.footnote && <p class="description mt-4 text-sm">{m.footnote}</p>}
+					</div>
+				</div>
 			</div>
-		</div>
+		))
+	}
+
+	{/* データのある月が今日を含まないとき（＝更新が止まったとき）に、ここだけが残る */}
+	<p id="cal-fallback" class="description mt-8 hidden">
+		貸切・臨時のご予定は、公式LINEとInstagramでご案内しております。<br />
+		ご来店の予定が決まりましたら、お気軽にお問い合わせくださいませ。
+	</p>
+
+	<p class="description mt-8 text-sm">
+		★＝来てほしい日　／　※＝ご注意<br />
+		貸切・ご宴会・BBQ のご相談は公式LINEへどうぞ。
+	</p>
+
+	<div class="mt-5 flex max-w-xl flex-col gap-3 sm:flex-row">
+		<a
+			class="button button--primary flex-1 gap-2"
+			href="https://booking.ebica.jp/webrsv/search/e014121101/29492"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			<span>お席を予約する</span>
+		</a>
+		<a
+			class="button button--outline flex-1 gap-2"
+			href="https://lin.ee/ngJUcCC"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			<span>LINEで相談する</span>
+		</a>
 	</div>
 </section>
 
 <script>
-	// 「今日やってる？」に、入力なしで毎日正しく答える。
-	// ClientRouter を使っているので astro:page-load でも走らせる。
-	function renderToday() {
+	// 静的サイトなので、ビルドしたときの月のまま止まる。
+	// そこで「今日に合う月だけを残す」判定をブラウザ側でやる。
+	// 合う月が無ければカレンダーごと隠す＝放置しても古い月が出続けない。
+	function renderCalendar() {
 		const box = document.getElementById("cal-today");
 		if (!box) return;
 		const raw = box.getAttribute("data-cal");
@@ -214,18 +243,34 @@ const todayData = {
 		const cal = JSON.parse(raw);
 
 		const now = new Date();
-		if (now.getFullYear() !== cal.year || now.getMonth() + 1 !== cal.month) return; // 別の月なら出さない
+		const key = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 
+		// 今月のブロックだけ残す
+		let shown = 0;
+		document.querySelectorAll<HTMLElement>(".cal-month").forEach((el) => {
+			const hit = el.dataset.calMonth === key;
+			el.classList.toggle("hidden", !hit);
+			if (hit) shown++;
+		});
+		const fallback = document.getElementById("cal-fallback");
+		if (fallback) fallback.classList.toggle("hidden", shown > 0);
+
+		// 今日の状態
+		const month = cal.months.find((m: { key: string }) => m.key === key);
+		if (!month) {
+			box.classList.add("hidden");
+			return;
+		}
 		const day = now.getDate();
 		const wd = now.getDay();
-		const hit = cal.days.find((d: { day: number }) => d.day === day);
+		const hit = month.days.find((d: { day: number }) => d.day === day);
 
 		let state: string;
 		let detail: string;
 		if (hit) {
 			state = hit.tone === "off" ? "本日はご来店いただけません" : hit.title;
 			detail = hit.note || "";
-		} else if (wd === cal.closedWeekday) {
+		} else if (wd === month.closedWeekday) {
 			state = "本日は定休日です";
 			detail = "またのご来店をお待ちしております。";
 		} else {
@@ -237,12 +282,13 @@ const todayData = {
 			const el = document.getElementById(id);
 			if (el) el.textContent = text;
 		};
-		set("cal-today-date", `本日 ${cal.month}月${day}日（${"日月火水木金土"[wd]}）`);
+		set("cal-today-date", `本日 ${now.getMonth() + 1}月${day}日（${"日月火水木金土"[wd]}）`);
 		set("cal-today-state", state);
 		set("cal-today-detail", detail);
 		box.classList.remove("hidden");
 	}
 
-	renderToday();
-	document.addEventListener("astro:page-load", renderToday);
+	renderCalendar();
+	// ClientRouter を使っているので、ページ遷移後にも走らせる
+	document.addEventListener("astro:page-load", renderCalendar);
 </script>
