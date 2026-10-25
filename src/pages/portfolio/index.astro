@@ -13,10 +13,19 @@ const portfolios = await getCollection("portfolios", ({ data }) => {
 });
 ---
 
-<BaseLayout title="ご利用シーン・プラン" description="Enleeのご利用シーン・貸切プランのご案内。">
+<BaseLayout
+	title="ご利用シーン・プラン"
+	description="Enleeのご利用シーン・貸切プランのご案内。ご宴会・貸切は最大70名様まで（半立食のブッフェの場合・着席は65名様まで）。コース・ブッフェ・屋外BBQからお選びいただけます。"
+>
 	<div class="site-container pt-24 md:pt-36">
 		<div class="mx-auto max-w-6xl text-center">
 			<h1 class="h2 text-pretty uppercase">ご利用シーン・貸切プラン</h1>
+			{/* 30〜70名のご宴会が増えているので、入口で受けられる人数を先に出す */}
+			<p class="description mx-auto mt-6 max-w-2xl text-pretty">
+				ご宴会・貸切は <span class="text-primary-700">最大70名様</span
+				>まで承ります（半立食のブッフェの場合。着席は65名様まで）。<br />
+				コース・ブッフェ・屋外BBQから、ご人数とご予算に合わせてお選びいただけます。
+			</p>
 		</div>
 		<PortfolioGrid portfolios={portfolios} />
 	</div>
