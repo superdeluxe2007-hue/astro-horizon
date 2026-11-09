@@ -6,14 +6,12 @@
 
 import Button from "@components/Button/Button.astro";
 import candleImage from "@assets/images/enlee-birthday-candle.jpg";
-import cakeImage from "@assets/images/enlee-birthday-cake.jpg";
 import plateImage from "@assets/images/enlee-birthday-plate.jpg";
 import { Image } from "astro:assets";
 
 const images = [
 	{ src: plateImage, alt: "メッセージをお書きしたデザートプレート" },
 	{ src: candleImage, alt: "キャンドルを添えたお祝いのプレート" },
-	{ src: cakeImage, alt: "お名前をお入れしたホールケーキ" },
 ];
 
 // 出典: 公式LINEの応答メッセージ（2026-08）。原文は税抜のため、サイトの他箇所に合わせて税込（10%）に換算
@@ -24,13 +22,6 @@ const plans = [
 		description: "人気のスイーツを数種類盛り合わせた、お祝いにぴったりの一皿です。",
 		deadline: "ご利用日の前営業日まで",
 	},
-	{
-		name: "ホールケーキプレート",
-		price: "¥3,630〜",
-		description: "ホールケーキにメッセージをお入れします。",
-		sizes: ["4号（12cm）¥3,630", "5号（15cm）¥4,950", "6号（18cm）¥6,380"],
-		deadline: "ご利用日の3営業日前まで",
-	},
 ];
 ---
 
@@ -39,11 +30,11 @@ const plans = [
 		<h2 class="h3 text-primary-500 text-pretty uppercase">Anniversary</h2>
 		<h3 class="h2 mt-4">大切な人の、特別な一日に。</h3>
 		<p class="description mt-6 lg:text-lg">
-			お誕生日や記念日には、メッセージをお書きしたデザートプレートや、ホールケーキのご用意も承っています。お渡しするタイミングなど、当日の進め方もあわせてご相談ください。
+			お誕生日や記念日には、メッセージをお書きしたデザートプレートをご用意しています。お渡しするタイミングなど、当日の進め方もあわせてご相談ください。
 		</p>
 	</div>
 
-	<div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 md:mt-16">
+	<div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16">
 		{
 			images.map((img) => (
 				<div class="aspect-[3/4] overflow-hidden">
