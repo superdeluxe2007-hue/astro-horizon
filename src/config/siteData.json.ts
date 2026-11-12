@@ -20,7 +20,9 @@ export interface SiteDataProps {
 const siteData: SiteDataProps = {
 	name: "Enlee",
 	// Your website's title and description (meta fields)
-	title: "Enlee（エンリー）｜福山・中央公園のガーデンレストラン｜団体宴会・お弁当・ケータリング",
+	// 2026-11-13: 検索で一番探されているのは「福山 ランチ」「カフェ」（Search Console・GBP の実測）。
+	// 検索結果では後ろが切れるので、ランチ・カフェを前に置く
+	title: "Enlee（エンリー）｜福山のランチ・カフェ｜中央公園のガーデンレストラン・貸切・お弁当",
 	// 下層ページは「ランチ」だけでは検索結果で何の店か分からないため、屋号と場所を必ず添える
 	titleSuffix: "Enlee（エンリー）福山・中央公園のガーデンレストラン",
 	description:
