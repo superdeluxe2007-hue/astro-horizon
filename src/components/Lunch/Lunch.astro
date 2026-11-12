@@ -17,8 +17,9 @@ const { compact = false } = Astro.props as Props;
 
 // 見出しの階層: ホーム（compact）はページの h1 が Hero にあるので h2／h3。
 // 専用ページではこのセクションがページ本体なので h1／h2 に繰り上げる。見た目は class で固定。
-const Eyebrow = compact ? "h2" : "h1";
-const Heading = compact ? "h3" : "h2";
+// 専用ページでは日本語の見出しを h1 にする（英語の小見出しは飾り）。検索と読み上げが、ページの主題を日本語で受け取れるようにするため
+const Eyebrow = compact ? "h2" : "p";
+const Heading = compact ? "h3" : "h1";
 
 // 写真がどの料理かを明示し、価格との食い違いによる誤解を防ぐ
 const lunchPhotos = [
@@ -31,7 +32,9 @@ const lunchPhotos = [
 	<div class="flex flex-col md:flex-row-reverse">
 		<div class="md:w-2/3 md:pl-16">
 			<Eyebrow class="h3 text-primary-500 text-pretty uppercase">Lunch</Eyebrow>
-			<Heading class="h2 mt-4">庭を眺めながら、ゆっくりとしたお昼を。</Heading>
+			<Heading class="h2 mt-4">
+				{!compact && <span class="sr-only">ランチ｜</span>}庭を眺めながら、ゆっくりとしたお昼を。
+			</Heading>
 			<div class="mt-8 lg:text-lg">
 				<p>
 					旬の野菜をたっぷり使ったプレートや、自家製デミグラスのオムライス、注文を受けてから焼き上げるピザ。忙しい日常の合間にも、緑を感じながら深呼吸できるような、そんなランチをご用意しています。

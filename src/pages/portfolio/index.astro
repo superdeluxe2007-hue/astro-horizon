@@ -15,7 +15,7 @@ const portfolios = await getCollection("portfolios", ({ data }) => {
 
 <BaseLayout
 	title="ご利用シーン・プラン"
-	description="Enleeのご利用シーン・貸切プランのご案内。ご宴会・貸切は最大70名様まで（半立食のブッフェの場合・着席は65名様まで）。コース・ブッフェ・屋外BBQからお選びいただけます。"
+	description="Enlee（福山市・中央公園内）の貸切・ご宴会プラン。忘年会・新年会・歓送迎会・懇親会・同窓会などに。最大70名様まで（半立食のブッフェの場合・着席は65名様まで）。コース・ブッフェ・屋外BBQからお選びいただけます。"
 >
 	<div class="site-container pt-24 md:pt-36">
 		<div class="mx-auto max-w-6xl text-center">
@@ -25,6 +25,10 @@ const portfolios = await getCollection("portfolios", ({ data }) => {
 				ご宴会・貸切は <span class="text-primary-700">最大70名様</span
 				>まで承ります（半立食のブッフェの場合。着席は65名様まで）。<br />
 				コース・ブッフェ・屋外BBQから、ご人数とご予算に合わせてお選びいただけます。
+			</p>
+			{/* 2026-11-12 の打ち合わせ: 企業のご宴会の需要に、探される言葉で応える */}
+			<p class="description mx-auto mt-4 max-w-2xl text-pretty">
+				忘年会・新年会・歓送迎会・懇親会・同窓会など、会社やグループでのお集まりにご利用いただけます。
 			</p>
 		</div>
 		<PortfolioGrid portfolios={portfolios} />

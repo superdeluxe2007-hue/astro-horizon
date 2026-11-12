@@ -23,8 +23,9 @@ interface Props {
 
 const { compact = false, class: className = "" } = Astro.props as Props;
 
-const Eyebrow = compact ? "h2" : "h1";
-const Heading = compact ? "h3" : "h2";
+// 専用ページでは日本語の見出しを h1 にする（英語の小見出しは飾り）。検索と読み上げが、ページの主題を日本語で受け取れるようにするため
+const Eyebrow = compact ? "h2" : "p";
+const Heading = compact ? "h3" : "h1";
 const MonthHeading = compact ? "h4" : "h3";
 
 const WD = ["日", "月", "火", "水", "木", "金", "土"];

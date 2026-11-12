@@ -17,8 +17,9 @@ const { compact = false } = Astro.props as Props;
 
 // 見出しの階層: ホーム（compact）はページの h1 が Hero にあるので h2／h3。
 // 専用ページではこのセクションがページ本体なので h1／h2 に繰り上げる。見た目は class で固定。
-const Eyebrow = compact ? "h2" : "h1";
-const Heading = compact ? "h3" : "h2";
+// 専用ページでは日本語の見出しを h1 にする（英語の小見出しは飾り）。検索と読み上げが、ページの主題を日本語で受け取れるようにするため
+const Eyebrow = compact ? "h2" : "p";
+const Heading = compact ? "h3" : "h1";
 
 // 写真がどの商品かを明示し、価格との食い違いによる誤解を防ぐ
 const images = [
@@ -33,7 +34,9 @@ const images = [
 	<div class="site-container">
 		<div class="mx-auto max-w-2xl text-center">
 			<Eyebrow class="h3 text-primary-500 text-pretty uppercase">Evening Cafe</Eyebrow>
-			<Heading class="h2 mt-4">灯りがともる頃、少し特別なデザートタイム。</Heading>
+			<Heading class="h2 mt-4">
+				{!compact && <span class="sr-only">夜カフェ｜</span>}灯りがともる頃、少し特別なデザートタイム。
+			</Heading>
 			<p class="description mt-6 lg:text-lg">
 				フレンチトースト、フロマージュブラン、季節のフルーツを使ったデザート。日が暮れて庭に灯りがともる時間は、ワインやシードルを片手にゆっくりとデザートを楽しむひとときに変わります。
 			</p>
