@@ -1,6 +1,8 @@
 ---
 import About from "@components/About/About.astro";
 import Anniversary from "@components/Anniversary/Anniversary.astro";
+// 季節の案内（クリスマス）。受付の期限を過ぎると自動で消える
+import XmasNotice from "@components/Christmas/XmasNotice.astro";
 import Contact from "@components/Contact/Contact.astro";
 import EveningCafe from "@components/EveningCafe/EveningCafe.astro";
 // components
@@ -16,6 +18,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 <BaseLayout title={siteData.title} description={siteData.description} navStartStyle="white">
 	<Hero />
+	<XmasNotice class="pt-10 md:pt-16" />
 	<About compact />
 	<Lunch compact />
 	<EveningCafe compact />

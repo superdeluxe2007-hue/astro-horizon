@@ -120,6 +120,58 @@ export const faqSchema = (items: { q: string; a: string }[] = []) => ({
 	})),
 });
 
+/**
+ * 季節の持ち帰り商品（クリスマス等）を、店の OfferCatalog として出す。
+ * AI検索・Google が「この店で、いつまでに、いくらで、何を予約できるか」を読めるようにする。
+ * 🔴 クリスマスのページに表示している商品・値段・期限だけを入れる（→ src/data/christmas.ts）
+ */
+export const seasonalOffersSchema = (opts: {
+	name: string;
+	pageUrl: string;
+	acceptFrom: string;
+	until: string;
+	items: { name: string; description: string; image: string; prices: { label?: string; price: number }[] }[];
+}) => ({
+	"@type": "Restaurant",
+	"@id": `${SITE_URL}/#restaurant`,
+	name: "Enlee",
+	telephone: "+81-84-999-7006",
+	address: {
+		"@type": "PostalAddress",
+		postalCode: "720-0812",
+		addressRegion: "広島県",
+		addressLocality: "福山市",
+		streetAddress: "霞町1-10-2（中央公園内）",
+		addressCountry: "JP",
+	},
+	hasOfferCatalog: {
+		"@type": "OfferCatalog",
+		name: opts.name,
+		url: absolute(opts.pageUrl),
+		itemListElement: opts.items.flatMap((item) =>
+			item.prices.map((p) => ({
+				"@type": "Offer",
+				name: p.label ? `${item.name} ${p.label}` : item.name,
+				price: p.price,
+				priceCurrency: "JPY",
+				availability: "https://schema.org/PreOrder",
+				availabilityStarts: opts.acceptFrom,
+				availabilityEnds: opts.until,
+				priceValidUntil: opts.until.slice(0, 10),
+				availableDeliveryMethod: "http://purl.org/goodrelations/v1#DeliveryModePickUp",
+				url: absolute(opts.pageUrl),
+				seller: { "@id": `${SITE_URL}/#restaurant` },
+				itemOffered: {
+					"@type": "Product",
+					name: item.name,
+					description: item.description,
+					image: absolute(item.image),
+				},
+			}))
+		),
+	},
+});
+
 /** 複数スキーマを 1 つの JSON-LD にまとめる。 */
 export const graph = (...nodes: unknown[]) => ({
 	"@context": "https://schema.org",

@@ -1,0 +1,31 @@
+---
+/**
+ * 季節の受付の期限を、ブラウザ側で判定する。
+ * 期限前: [data-xmas-open] を出し、[data-xmas-closed] を隠す
+ * 期限後: 逆にする。[data-xmas-hide-after] は期限後に丸ごと消す（トップの案内など）
+ * 🔑 HP を作り直さなくても、期限を過ぎた案内が出続けないようにするため（営業カレンダーと同じ考え方）
+ */
+interface Props {
+	until: string; // ISO 8601（例: 2026-12-17T23:59:59+09:00）
+}
+const { until } = Astro.props as Props;
+---
+
+<script is:inline define:vars={{ until }}>
+	(function () {
+		function apply() {
+			var closed = Date.now() > new Date(until).getTime();
+			document.querySelectorAll("[data-xmas-open]").forEach(function (el) {
+				el.classList.toggle("hidden", closed);
+			});
+			document.querySelectorAll("[data-xmas-closed]").forEach(function (el) {
+				el.classList.toggle("hidden", !closed);
+			});
+			document.querySelectorAll("[data-xmas-hide-after]").forEach(function (el) {
+				if (closed) el.remove();
+			});
+		}
+		apply();
+		document.addEventListener("astro:page-load", apply);
+	})();
+</script>

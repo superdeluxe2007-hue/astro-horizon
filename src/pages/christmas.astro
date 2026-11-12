@@ -1,0 +1,156 @@
+---
+/**
+ * クリスマスのご予約（2026）。季節限定のページ。
+ * 値はすべて src/data/christmas.ts から読む（ここに値を書かない）。
+ * 受付の期限を過ぎると、ブラウザ側で「受付終了」の表示に切り替わる（XmasExpiry）。
+ */
+import Button from "@components/Button/Button.astro";
+import XmasExpiry from "@components/Christmas/XmasExpiry.astro";
+import { XMAS, XMAS_FAQ, XMAS_ITEMS, yen } from "@/data/christmas";
+import { breadcrumbSchema, faqSchema, seasonalOffersSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+const schemas = [
+	seasonalOffersSchema({
+		name: `Enlee クリスマス ${XMAS.year}（ケーキ・オードブル・チキンのご予約）`,
+		pageUrl: "/christmas/",
+		acceptFrom: XMAS.acceptFrom,
+		until: XMAS.until,
+		items: XMAS_ITEMS.map((i) => ({
+			name: i.name,
+			description: i.description,
+			image: i.image.src,
+			prices: i.prices,
+		})),
+	}),
+	faqSchema(XMAS_FAQ),
+	breadcrumbSchema([{ label: "ホーム", to: "/" }, { label: "クリスマスのご予約", to: "/christmas/" }]),
+];
+
+const priceSummary = XMAS_ITEMS.map(
+	(i) => `${i.name}${i.prices.length > 1 ? " " + yen(Math.min(...i.prices.map((p) => p.price))) + "〜" : " " + yen(i.prices[0].price)}`
+).join("、");
+const description = `Enlee（エンリー・福山市 中央公園内）のクリスマス ${XMAS.year}。${priceSummary}（税込）。ご予約は${XMAS.deadlineLabel}まで、お受け取りは${XMAS.pickupDays.join("・")}の${XMAS.pickupHours}。`;
+
+const facts = [
+	{ dt: "ご予約の締切", dd: XMAS.deadlineLabel },
+	{ dt: "お受け取り", dd: `${XMAS.pickupDays.join("・")} ${XMAS.pickupHours}` },
+	{ dt: "お受け取りの場所", dd: XMAS.place },
+	{ dt: "お支払い", dd: XMAS.payment },
+];
+---
+
+<BaseLayout title="クリスマスのご予約" description={description} heroImage={XMAS.heroImage} schemas={schemas}>
+	<XmasExpiry until={XMAS.until} />
+
+	<section class="site-container pt-24 md:pt-36">
+		<div class="mx-auto max-w-2xl text-center">
+			<p class="h3 text-primary-500 uppercase">Christmas {XMAS.year}</p>
+			<h1 class="h2 mt-4">Enleeのクリスマス</h1>
+			<p class="description mt-6 lg:text-lg">
+				今年のEnleeのクリスマスは、シュークリームから生まれた新作のパリブレストと、定番のクリスマスタルト。ご家族やご友人と囲むテーブルに、オードブルとチキンもご用意しました。
+			</p>
+		</div>
+
+		<div class="mx-auto mt-10 max-w-3xl overflow-hidden md:mt-14">
+			<Image
+				src={XMAS.heroImage}
+				alt="リング形のパリブレスト。いちごとベリー、ローリエの葉を添えて"
+				width={900}
+				densities={[1.5, 2]}
+				class="aspect-[4/3] w-full object-cover"
+				loading="eager"
+			/>
+		</div>
+
+		<!-- 受付中だけ出す -->
+		<div data-xmas-open>
+			<dl class="border-primary-200 mx-auto mt-10 grid max-w-3xl gap-4 border-2 px-6 py-6 sm:grid-cols-2 md:px-8">
+				{
+					facts.map((f) => (
+						<div>
+							<dt class="text-base-900/60 text-sm">{f.dt}</dt>
+							<dd class="mt-1">{f.dd}</dd>
+						</div>
+					))
+				}
+			</dl>
+			<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<Button href={XMAS.formUrl} target="_blank" rel="noopener noreferrer" variant="primary" class="px-10">
+					ご予約フォームへ
+				</Button>
+				<Button href={XMAS.lineUrl} target="_blank" rel="noopener noreferrer" variant="outline" class="px-8">
+					公式LINEで予約する
+				</Button>
+			</div>
+			<p class="text-base-900/60 mt-4 text-center text-sm">
+				お電話（<a class="underline" href={`tel:${XMAS.tel}`}>{XMAS.tel}</a>）・店頭でも承ります。
+			</p>
+		</div>
+
+		<!-- 受付終了後だけ出す -->
+		<div data-xmas-closed class="hidden">
+			<p class="border-primary-200 mx-auto mt-10 max-w-2xl border-2 px-6 py-6 text-center">
+				{XMAS.year}年のクリスマスのご予約は、受付を終了いたしました。たくさんのご予約をありがとうございました。
+			</p>
+		</div>
+	</section>
+
+	<section class="site-container py-16 md:py-24">
+		<h2 class="h2 text-center">ご予約いただける商品</h2>
+		<div class="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-10 sm:grid-cols-2 md:mt-14">
+			{
+				XMAS_ITEMS.map((item) => (
+					<article id={item.id} class="flex flex-col">
+						<div class="aspect-[3/4] overflow-hidden">
+							<Image
+								src={item.image}
+								alt={item.alt}
+								width={520}
+								densities={[1.5, 2]}
+								class="h-full w-full object-cover"
+							/>
+						</div>
+						<h3 class="font-heading-1 mt-5 text-xl tracking-wide md:text-2xl">
+							{item.name}
+							{item.badge && <span class="text-primary-500 ml-2 align-middle text-sm">{item.badge}</span>}
+						</h3>
+						{item.size && <p class="text-base-900/70 mt-1 text-sm">{item.size}</p>}
+						<p class="description mt-3 text-sm leading-relaxed">{item.description}</p>
+						<ul class="mt-4 flex flex-col gap-1">
+							{item.prices.map((p) => (
+								<li class="flex items-baseline justify-between gap-3 border-b border-base-200 pb-1">
+									<span>{p.label ?? item.name}</span>
+									<span class="shrink-0 whitespace-nowrap">{yen(p.price)}</span>
+								</li>
+							))}
+						</ul>
+					</article>
+				))
+			}
+		</div>
+		<p class="text-base-900/60 mt-8 text-center text-sm">表示価格はすべて税込です。</p>
+	</section>
+
+	<section class="site-container pb-16 md:pb-24">
+		<div class="mx-auto max-w-3xl">
+			<h2 class="h2 text-center">よくあるご質問</h2>
+			<dl class="mt-10">
+				{
+					XMAS_FAQ.map((item) => (
+						<div class="border-base-200 border-t py-6 last:border-b">
+							<dt class="font-heading-1 text-lg">{item.q}</dt>
+							<dd class="description mt-3">{item.a}</dd>
+						</div>
+					))
+				}
+			</dl>
+			<div data-xmas-open class="mt-10 flex justify-center">
+				<Button href={XMAS.formUrl} target="_blank" rel="noopener noreferrer" variant="primary" class="px-10">
+					ご予約フォームへ
+				</Button>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
