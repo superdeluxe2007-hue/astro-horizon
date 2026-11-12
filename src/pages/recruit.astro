@@ -14,7 +14,8 @@ import Contact from "@components/Contact/Contact.astro";
 import Staff from "@components/Staff/Staff.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { RECRUIT_CONTACT, RECRUIT_DAY, RECRUIT_HERO, RECRUIT_PATH, RECRUIT_PROMISES } from "@/data/recruit";
-import heroImage from "@assets/images/enlee-interior-bright.jpg";
+// 1枚目はスタッフが写っている写真（2026-11-13 本人指示）。顔出しは採用ページに限り本人同意のうえ可（brand/enlee §4）
+import heroImage from "@assets/images/enlee-staff-smile.jpg";
 import nightImage from "@assets/images/enlee-venue-night.jpg";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
@@ -36,10 +37,10 @@ import { Icon } from "astro-icon/components";
 				<div class="aspect-[4/3] w-full overflow-hidden">
 					<Image
 						src={heroImage}
-						alt="光の入るEnleeの店内"
+						alt="Enleeの店内で、ケーキを手に笑うスタッフ"
 						width={720}
 						densities={[1.5, 2]}
-						class="h-full w-full object-cover"
+						class="h-full w-full object-cover object-[50%_55%]"
 					/>
 				</div>
 			</div>
