@@ -1,0 +1,51 @@
+---
+/**
+ * * スタッフ紹介セクション（採用ページ／Enleeについて で共用）
+ *
+ * src/data/staff/ に置いたデータのうち draft: false のものだけを出す。
+ * 言葉と写真がそろうまでは draft: true のままにしておけば、この節ごと非表示になる。
+ */
+
+import StaffCard from "@components/Staff/StaffCard.astro";
+import { getCollection } from "astro:content";
+
+interface Props {
+	heading?: string;
+	description?: string;
+	class?: string;
+}
+
+const {
+	heading = "Enleeをつくっている人",
+	description,
+	class: className,
+} = Astro.props as Props;
+
+const staff = (await getCollection("staff"))
+	.filter((entry) => !entry.data.draft)
+	.sort((a, b) => a.data.order - b.data.order);
+
+// 掲載人数に合わせて列数を決める（1人・2人でも中央に収まるように）
+const gridClass =
+	staff.length === 1
+		? "mx-auto grid max-w-md gap-16 pt-12"
+		: staff.length === 2
+			? "mx-auto grid max-w-md gap-16 pt-12 lg:max-w-3xl lg:grid-cols-2"
+			: "mx-auto grid max-w-md gap-16 pt-12 lg:max-w-none lg:grid-cols-3";
+---
+
+{
+	staff.length > 0 && (
+		<section id="staff" class:list={[className, "site-container scroll-mt-10 py-20 md:py-32"]}>
+			<div class="mx-auto max-w-3xl text-center">
+				<h2 class="h2 text-pretty">{heading}</h2>
+				{description && <p class="mt-6 text-pretty lg:text-lg">{description}</p>}
+			</div>
+			<div class={gridClass}>
+				{staff.map((entry) => (
+					<StaffCard staff={entry} />
+				))}
+			</div>
+		</section>
+	)
+}

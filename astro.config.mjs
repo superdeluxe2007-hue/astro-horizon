@@ -33,6 +33,7 @@ export default defineConfig({
 					"x",
 					"map-pin",
 					"calendar",
+					"phone",
 					"chevron-down",
 					"category",
 					"calendar-event",
@@ -40,6 +41,9 @@ export default defineConfig({
 			},
 		}),
 		sitemap({
+			// 🔴 /staff はスタッフ向けの社内ページ。sitemap に出さない
+			//    （ページ側の noindex・public/robots.txt の Disallow とセットで3重に押さえている）
+			filter: (page) => !new URL(page).pathname.startsWith("/staff"),
 			// 更新日を出す。無いと検索・AI側で「鮮度が判定できない」状態になるため
 			serialize(item) {
 				item.lastmod = new Date().toISOString();

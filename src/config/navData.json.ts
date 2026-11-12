@@ -30,6 +30,10 @@ const navConfig: navItem[] = [
 		link: "/evening-cafe",
 	},
 	{
+		text: "採用情報",
+		link: "/recruit",
+	},
+	{
 		text: "パーティー・お弁当",
 		dropdown: [
 			{
