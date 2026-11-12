@@ -66,7 +66,7 @@ const lunchPhotos = [
 				/>
 			</div>
 			<p class="text-base-900/60 mt-3 text-center text-xs leading-relaxed">
-				写真は「自家製鶏ハムとアボカドの農園サラダランチ」（¥1,650）です。
+				写真は「自家製鶏ハムとアボカドの農園サラダランチ」（¥1,640）です。
 			</p>
 		</div>
 	</div>
@@ -90,6 +90,15 @@ const lunchPhotos = [
 						</p>
 					</div>
 				))}
+			</div>
+		)
+	}
+	{
+		!compact && (
+			<div class="mt-12 flex justify-center">
+				<Button href="/menu/#lunch" variant="outline" arrow="right" class="px-8">
+					ランチのメニューと値段を見る
+				</Button>
 			</div>
 		)
 	}

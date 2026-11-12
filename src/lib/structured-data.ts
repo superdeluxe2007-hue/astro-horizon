@@ -43,7 +43,7 @@ export const restaurantSchema = () => ({
 	maximumAttendeeCapacity: 70,
 	priceRange: "¥1,000〜2,000",
 	acceptsReservations: "https://booking.ebica.jp/webrsv/search/e014121101/29492",
-	hasMenu: absolute("/lunch/"),
+	hasMenu: absolute("/menu/"),
 	// お問い合わせ欄に出している Google マップのリンクと同じもの。
 	// Googleビジネスプロフィールと HP を結び付け、AI検索（AI Overview・ChatGPT 等）が
 	// 同じ店だと判定できるようにする。place_id は GBP API で確定した値。
@@ -170,6 +170,31 @@ export const seasonalOffersSchema = (opts: {
 			}))
 		),
 	},
+});
+
+/**
+ * 店内メニュー。Restaurant の hasMenu が指す Menu を、メニューのページに出す。
+ * 🔴 メニューのページに表示している品と値段だけを入れる（→ src/data/menu.ts）
+ */
+export const menuSchema = (
+	sections: { title: string; hours?: string; items: { name: string; price: number; description?: string }[] }[]
+) => ({
+	"@type": "Menu",
+	"@id": `${SITE_URL}/menu/#menu`,
+	name: "Enlee メニュー",
+	url: absolute("/menu/"),
+	inLanguage: "ja",
+	hasMenuSection: sections.map((s) => ({
+		"@type": "MenuSection",
+		name: s.title,
+		...(s.hours ? { description: `提供時間 ${s.hours}` } : {}),
+		hasMenuItem: s.items.map((i) => ({
+			"@type": "MenuItem",
+			name: i.name,
+			...(i.description ? { description: i.description } : {}),
+			offers: { "@type": "Offer", price: i.price, priceCurrency: "JPY" },
+		})),
+	})),
 });
 
 /** 複数スキーマを 1 つの JSON-LD にまとめる。 */

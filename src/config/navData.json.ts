@@ -18,6 +18,10 @@ const navConfig: navItem[] = [
 		link: "/about",
 	},
 	{
+		text: "メニュー",
+		link: "/menu",
+	},
+	{
 		text: "ランチ",
 		link: "/lunch",
 	},

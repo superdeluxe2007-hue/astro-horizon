@@ -19,6 +19,7 @@
 
 - [ホーム](https://enlee-fukuyama.com/): 店舗の概要・営業案内・お問い合わせ
 - [Enleeについて](https://enlee-fukuyama.com/about/): コンセプトと店名の由来
+- [メニュー](https://enlee-fukuyama.com/menu/): 店内メニューの一覧と値段（ランチ・スイーツ・フレンチトースト・夜のお食事・キッズ・ドリンク）
 - [ランチ](https://enlee-fukuyama.com/lunch/): ランチメニュー（11:00〜14:00）
 - [夜カフェ](https://enlee-fukuyama.com/evening-cafe/): 14:00以降のフード・スイーツ・ドリンク
 - [テイクアウト](https://enlee-fukuyama.com/takeout/): テイクアウト小屋のメニュー

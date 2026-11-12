@@ -1,0 +1,108 @@
+---
+/**
+ * メニュー（店内）。ランチ・スイーツ・お食事・キッズ・ドリンクの一覧と値段。
+ * 値はすべて src/data/menu.ts から読む（ここに値段を書かない）。
+ * 検索の「エンリー メニュー」「福山 ランチ」で探す方と、AI検索が値段を読めるようにするためのページ。
+ */
+import XmasNotice from "@components/Christmas/XmasNotice.astro";
+import Contact from "@components/Contact/Contact.astro";
+import { MENU, yen } from "@/data/menu";
+import { breadcrumbSchema, menuSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+// OGP画像。看板のおばんざい定食を出す
+import ogImage from "@assets/images/enlee-lunch-obanzai.jpg";
+
+const schemas = [
+	menuSchema(MENU),
+	breadcrumbSchema([{ label: "ホーム", to: "/" }, { label: "メニュー", to: "/menu/" }]),
+];
+
+const lunch = MENU.find((s) => s.id === "lunch")!;
+const description =
+	`Enlee（エンリー・福山市 中央公園内）のメニューと値段。ランチ（${lunch.hours}）は` +
+	lunch.items.map((i) => `${i.name.replace(/ 〜.*〜/, "")} ${yen(i.price)}`).join("、") +
+	"。スイーツ、フレンチトースト、夜のお食事、キッズメニュー、ドリンクもご覧いただけます（税込）。";
+
+const others = [
+	{ href: "/takeout/", label: "お弁当・オードブル", text: "ご自宅や職場へ。お弁当は2営業日前、オードブルは6営業日前までに。" },
+	{ href: "/portfolio/", label: "貸切・パーティー", text: "コース・ブッフェ・BBQ。最大70名様まで。" },
+	{ href: "/#anniversary", label: "お誕生日・記念日", text: "メッセージをお書きしたデザートプレート。" },
+];
+---
+
+<BaseLayout title="メニュー" description={description} heroImage={ogImage} schemas={schemas}>
+	<section class="site-container pt-24 md:pt-36">
+		<div class="mx-auto max-w-2xl text-center">
+			<p class="h3 text-primary-500 uppercase">Menu</p>
+			<h1 class="h2 mt-4">Enleeのメニュー</h1>
+			<p class="description mt-6 lg:text-lg">
+				旬の野菜を使ったおばんざいのランチ、季節のスイーツ、ブリオッシュのフレンチトースト。公園の緑を眺めながら、お昼から夜までお楽しみいただけます。
+			</p>
+			<p class="text-base-900/60 mt-4 text-sm">
+				表示価格はすべて税込です。季節や仕入れによって、内容が変わることがあります。
+			</p>
+		</div>
+
+		<!-- ページ内の目次 -->
+		<nav aria-label="メニューの目次" class="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2">
+			{
+				MENU.map((s) => (
+					<a
+						href={`#${s.id}`}
+						class="border-primary-200 hover:bg-primary-50 border px-4 py-2 text-sm transition"
+					>
+						{s.title}
+					</a>
+				))
+			}
+		</nav>
+	</section>
+
+	<XmasNotice class="pt-12" />
+
+	<div class="site-container mx-auto max-w-3xl pb-8">
+		{
+			MENU.map((s) => (
+				<section id={s.id} class="scroll-mt-24 pt-16 md:pt-20">
+					<p class="text-primary-500 text-sm tracking-widest uppercase">{s.titleEn}</p>
+					<h2 class="h3 mt-1">{s.title}</h2>
+					{s.hours && <p class="text-base-900/60 mt-2 text-sm">{s.hours}</p>}
+					{s.lead && <p class="description mt-4 text-sm">{s.lead}</p>}
+					<ul class="mt-6">
+						{s.items.map((i) => (
+							<li class="border-base-200 border-t py-4 last:border-b">
+								<div class="flex items-baseline justify-between gap-4">
+									<h3 class="font-heading-1 text-lg">
+										{i.name}
+										{i.note && <span class="text-base-900/60 ml-2 text-sm">{i.note}</span>}
+									</h3>
+									<span class="shrink-0 whitespace-nowrap">{yen(i.price)}</span>
+								</div>
+								{i.description && (
+									<p class="text-base-900/70 mt-2 text-sm leading-relaxed">{i.description}</p>
+								)}
+							</li>
+						))}
+					</ul>
+					{s.footnote && <p class="text-base-900/70 mt-4 text-sm">{s.footnote}</p>}
+				</section>
+			))
+		}
+	</div>
+
+	<section class="site-container py-12 md:py-16">
+		<div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+			{
+				others.map((o) => (
+					<a href={o.href} class="border-primary-200 hover:bg-primary-50 border-2 px-5 py-6 transition">
+						<p class="font-heading-1 text-lg">{o.label}</p>
+						<p class="text-base-900/70 mt-2 text-sm leading-relaxed">{o.text}</p>
+						<span class="text-primary-500 mt-3 inline-block text-sm underline">くわしく見る →</span>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<Contact class="mt-4" />
+</BaseLayout>
