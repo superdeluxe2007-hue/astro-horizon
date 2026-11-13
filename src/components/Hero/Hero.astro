@@ -5,8 +5,10 @@
  */
 
 import Button from "@components/Button/Button.astro";
-import heroImage from "@images/enlee-interior-bright.jpg";
-import heroImageMobile from "@images/enlee-interior-bright.jpg";
+// 2026-11-13 本人指示「もっと適切な写真に」: 天井と壁しか見えていた店内の写真から、
+// 公園の緑・建物・テラスが一緒に写る昼の外観へ（「中央公園内 ガーデンレストラン」が一目で伝わる）
+import heroImage from "@images/enlee-garden-day.jpg";
+import heroImageMobile from "@images/enlee-garden-day.jpg";
 import { Image } from "astro:assets";
 ---
 
@@ -25,8 +27,8 @@ import { Image } from "astro:assets";
 
 		<Image
 			src={heroImage}
-			class="hidden h-auto min-h-full w-full object-cover object-[center_40%] sm:block"
-			alt="Enlee 店内。大きな窓から光が差し込むガーデンレストラン"
+			class="hidden h-full w-full object-cover object-[center_66%] sm:block"
+			alt="中央公園の木々に囲まれたEnleeの外観とテラス"
 			aria-hidden="true"
 			loading="eager"
 			height={1400}
@@ -34,7 +36,7 @@ import { Image } from "astro:assets";
 		<Image
 			src={heroImageMobile}
 			class="h-auto min-h-full w-full object-cover sm:hidden"
-			alt="Enlee 店内。大きな窓から光が差し込むガーデンレストラン"
+			alt="中央公園の木々に囲まれたEnleeの外観とテラス"
 			aria-hidden="true"
 			loading="eager"
 			width={1200}
