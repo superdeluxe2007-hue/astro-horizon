@@ -5,6 +5,7 @@
  */
 import Button from "@components/Button/Button.astro";
 import Contact from "@components/Contact/Contact.astro";
+import { INQUIRY_FORM_URL } from "@/data/inquiry";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/structured-data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { type InferGetStaticPropsType } from "astro";
@@ -75,15 +76,29 @@ const schemas = [
 		<section class="border-primary-200 mt-16 border-2 px-6 py-8 text-center">
 			<h2 class="h3">ご相談・お見積り</h2>
 			<p class="mt-4 text-pretty">
-				ご希望の日時・ご人数・会の内容をお知らせください。公式LINEかお電話で承ります。
+				ご希望の日時・ご人数・会の内容をお知らせください。まだ決まっていないところは、そのままで大丈夫です。
 			</p>
 			<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-				<Button href="https://lin.ee/ngJUcCC" target="_blank" rel="noopener noreferrer" arrow="right" class="px-8">
+				<Button href={INQUIRY_FORM_URL} target="_blank" rel="noopener noreferrer" arrow="right" class="px-8">
+					ご相談フォーム
+				</Button>
+				<Button
+					href="https://lin.ee/ngJUcCC"
+					target="_blank"
+					rel="noopener noreferrer"
+					variant="outline"
+					arrow="right"
+					class="px-8"
+				>
 					公式LINEで相談する
 				</Button>
-				<a href="tel:084-999-7006" class="text-lg underline underline-offset-4">084-999-7006</a>
 			</div>
-			<p class="text-base-900/60 mt-4 text-sm">お電話は 11:00〜21:00（火曜定休）</p>
+			<p class="mt-6 text-lg">
+				<a href="tel:084-999-7006" class="underline underline-offset-4">084-999-7006</a>
+			</p>
+			<p class="text-base-900/60 mt-2 text-sm">
+				お電話は 11:00〜21:00（火曜定休）。フォームは、会社のパソコンからもお送りいただけます。
+			</p>
 		</section>
 	</article>
 

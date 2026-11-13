@@ -5,6 +5,7 @@ import PortfolioGrid from "@components/Portfolio/PortfolioGrid.astro";
 import TestimonialQuote from "@components/Testimonials/TestimonialQuote.astro";
 // layout
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { INQUIRY_FORM_URL } from "@/data/inquiry";
 import { getCollection, render } from "astro:content";
 
 const portfolios = await getCollection("portfolios", ({ data }) => {
@@ -35,6 +36,9 @@ const portfolios = await getCollection("portfolios", ({ data }) => {
 		{/* 会社の幹事さん向けの記事への入口（2026-11-13） */}
 		<p class="description mx-auto mt-10 max-w-2xl text-center text-pretty">
 			セミナー・研修の会場やお弁当をお探しの方は、<a href="/guide/" class="text-primary-600 underline underline-offset-4">ご利用ガイド</a>もご覧ください。
+		</p>
+		<p class="description mx-auto mt-4 max-w-2xl text-center text-pretty">
+			ご相談は、<a href={INQUIRY_FORM_URL} target="_blank" rel="noopener noreferrer" class="text-primary-600 underline underline-offset-4">ご相談フォーム</a>からもお送りいただけます（会社のパソコンからもご利用いただけます）。
 		</p>
 	</div>
 
