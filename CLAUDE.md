@@ -45,7 +45,7 @@
 | フレームワーク | Astro ＋ Tailwind |
 | ベーステーマ | Cosmic-Themes「Horizon」（GPL） |
 | パッケージマネージャ | **pnpm** |
-| GitHub | `superdeluxe2007-hue/astro-horizon`（**Public**） |
+| GitHub | `superdeluxe2007-hue/astro-horizon`（**Public**）。🔴 **誰でも読めるので、お客様のお名前・電話番号・未公開の金額を、コード・コメント・コミットの文に書かない**（2026-11-13） |
 | ホスティング | **Cloudflare Pages**（プロジェクト名 `astro-horizon`） |
 | デプロイ | **main に push で自動ビルド・自動デプロイ** |
 | ドメイン | **ムームードメイン（GMO）**取得 → ネームサーバーを Cloudflare に変更済み |
