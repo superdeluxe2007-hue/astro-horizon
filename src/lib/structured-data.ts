@@ -197,6 +197,32 @@ export const menuSchema = (
 	})),
 });
 
+/**
+ * ご利用ガイドの記事。書き手・発行元は店（Restaurant）そのもの。
+ * 🔴 記事に表示している題・説明・日付・写真だけを入れる。
+ */
+export const articleSchema = (opts: {
+	path: string;
+	title: string;
+	description: string;
+	image: string;
+	date: Date;
+	updated?: Date;
+}) => ({
+	"@type": "Article",
+	"@id": `${absolute(opts.path)}#article`,
+	headline: opts.title,
+	description: opts.description,
+	image: absolute(opts.image),
+	datePublished: opts.date.toISOString().slice(0, 10),
+	dateModified: (opts.updated ?? opts.date).toISOString().slice(0, 10),
+	inLanguage: "ja",
+	mainEntityOfPage: absolute(opts.path),
+	author: { "@id": `${SITE_URL}/#restaurant` },
+	publisher: { "@id": `${SITE_URL}/#restaurant` },
+	about: { "@id": `${SITE_URL}/#restaurant` },
+});
+
 /** 複数スキーマを 1 つの JSON-LD にまとめる。 */
 export const graph = (...nodes: unknown[]) => ({
 	"@context": "https://schema.org",

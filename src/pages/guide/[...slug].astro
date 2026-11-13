@@ -1,0 +1,98 @@
+---
+/**
+ * ご利用ガイドの記事（/guide/<slug>/）。本文は src/data/guides/<slug>/index.md。
+ * よくあるご質問は frontmatter の faq から、表示と FAQPage の構造化データの両方を作る。
+ */
+import Button from "@components/Button/Button.astro";
+import Contact from "@components/Contact/Contact.astro";
+import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { type InferGetStaticPropsType } from "astro";
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const guides = await getCollection("guides", ({ data }) => data.draft !== true);
+	return guides.map((guide) => ({ params: { slug: guide.id }, props: guide }));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const guide = Astro.props as Props;
+const { Content } = await render(guide);
+const { title, description, lead, heroImage, heroAlt, date, updated, faq } = guide.data;
+const path = `/guide/${guide.id}/`;
+const [heading, sub] = title.split("｜");
+const day = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+
+const schemas = [
+	articleSchema({ path, title, description, image: heroImage.src, date, updated }),
+	...(faq.length ? [faqSchema(faq)] : []),
+	breadcrumbSchema([
+		{ label: "ホーム", to: "/" },
+		{ label: "ご利用ガイド", to: "/guide/" },
+		{ label: heading, to: path },
+	]),
+];
+---
+
+<BaseLayout title={heading} description={description} heroImage={heroImage} schemas={schemas}>
+	<article class="guide-article mx-auto max-w-3xl px-4 pt-24 md:pt-36">
+		<nav aria-label="パンくず" class="text-base-900/60 text-sm">
+			<a href="/" class="underline underline-offset-4">ホーム</a>
+			<span class="mx-1">／</span>
+			<a href="/guide/" class="underline underline-offset-4">ご利用ガイド</a>
+		</nav>
+		<h1 class="h2 mt-6 text-pretty">{heading}</h1>
+		{sub && <p class="text-primary-600 mt-3 text-lg text-pretty md:text-xl">{sub}</p>}
+		<p class="mt-6 text-pretty lg:text-lg">{lead}</p>
+		<p class="text-base-900/60 mt-4 text-sm">
+			{day(date)}{updated && `（${day(updated)} 更新）`}
+		</p>
+		<div class="mt-8 aspect-[3/2] w-full overflow-hidden">
+			<Image src={heroImage} alt={heroAlt} width={768} densities={[1.5, 2]} class="h-full w-full object-cover" />
+		</div>
+
+		<div class="markdown-content mt-10 max-w-none">
+			<Content />
+		</div>
+
+		{
+			faq.length > 0 && (
+				<section class="mt-16">
+					<h2 class="h3">よくあるご質問</h2>
+					<dl class="mt-6">
+						{faq.map((item) => (
+							<div class="border-base-200 border-t py-5 last:border-b">
+								<dt class="font-heading-1 text-lg">{item.q}</dt>
+								<dd class="text-base-900/80 mt-2 leading-relaxed">{item.a}</dd>
+							</div>
+						))}
+					</dl>
+				</section>
+			)
+		}
+
+		<section class="border-primary-200 mt-16 border-2 px-6 py-8 text-center">
+			<h2 class="h3">ご相談・お見積り</h2>
+			<p class="mt-4 text-pretty">
+				ご希望の日時・ご人数・会の内容をお知らせください。公式LINEかお電話で承ります。
+			</p>
+			<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<Button href="https://lin.ee/ngJUcCC" target="_blank" rel="noopener noreferrer" arrow="right" class="px-8">
+					公式LINEで相談する
+				</Button>
+				<a href="tel:084-999-7006" class="text-lg underline underline-offset-4">084-999-7006</a>
+			</div>
+			<p class="text-base-900/60 mt-4 text-sm">お電話は 11:00〜21:00（火曜定休）</p>
+		</section>
+	</article>
+
+	<Contact class="mt-16" />
+</BaseLayout>
+
+<style is:global>
+	/* 見出しの書体（Cormorant）は数字が小さく崩れて見えるので、記事の見出しでは高さのそろった数字にする */
+	.guide-article :is(h1, h2, h3, dt) {
+		font-variant-numeric: lining-nums;
+	}
+</style>

@@ -97,9 +97,35 @@ const otherPages = defineCollection({
 		}),
 });
 
+// guides（ご利用ガイド）
+// 会社やグループの幹事さんが探す言葉（歓送迎会・セミナー・会議のお弁当 など）ごとに1本ずつ書く。
+// 🔴 値段・人数・時間は、貸切プラン／お弁当のページに出しているものと同じ値だけを書く。
+// faq は本文の下に「よくあるご質問」として表示し、同じ中身を FAQPage の構造化データにも出す（片方だけにしない）。
+const guides = defineCollection({
+	loader: glob({
+		pattern: "**/[^_]*.{md,mdx}",
+		base: "./src/data/guides",
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// 一覧のカードと、記事の冒頭に出す短い導入
+			lead: z.string(),
+			heroImage: image(),
+			heroAlt: z.string(),
+			date: z.coerce.date(),
+			updated: z.coerce.date().optional(),
+			faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+			order: z.number(),
+			draft: z.boolean().optional(),
+		}),
+});
+
 export const collections = {
 	portfolios,
 	testimonials,
 	staff,
 	otherPages,
+	guides,
 };

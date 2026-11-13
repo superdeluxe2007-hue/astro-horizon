@@ -1,0 +1,55 @@
+---
+/**
+ * ご利用ガイドの一覧（/guide/）。会社やグループの幹事さん向けの記事をまとめる入口。
+ */
+import Contact from "@components/Contact/Contact.astro";
+import { breadcrumbSchema } from "@/lib/structured-data";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const guides = (await getCollection("guides", ({ data }) => data.draft !== true)).sort(
+	(a, b) => a.data.order - b.data.order
+);
+const schemas = [breadcrumbSchema([{ label: "ホーム", to: "/" }, { label: "ご利用ガイド", to: "/guide/" }])];
+---
+
+<BaseLayout
+	title="ご利用ガイド"
+	description="Enlee（福山市・中央公園内）を、会社やグループでお使いいただくためのご案内です。セミナー・研修とお弁当、ご宴会・貸切の人数やご予算の目安、お申し込みの流れをご紹介します。"
+	schemas={schemas}
+>
+	<section class="site-container pt-24 md:pt-36">
+		<div class="mx-auto max-w-2xl text-center">
+			<p class="h3 text-primary-500 uppercase">Guide</p>
+			<h1 class="h2 mt-4">ご利用ガイド</h1>
+			<p class="description mt-6 text-pretty lg:text-lg">
+				会社やグループでお使いいただくときの、人数やご予算の目安、お申し込みの流れをご紹介します。
+			</p>
+		</div>
+		<ul class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
+			{
+				guides.map((g) => (
+					<li>
+						<a href={`/guide/${g.id}/`} class="group block">
+							<div class="aspect-[3/2] w-full overflow-hidden">
+								<Image
+									src={g.data.heroImage}
+									alt={g.data.heroAlt}
+									width={560}
+									densities={[1.5, 2]}
+									class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+								/>
+							</div>
+							<h2 class="font-heading-1 mt-4 text-xl text-pretty">{g.data.title.split("｜")[0]}</h2>
+							<p class="text-base-900/70 mt-2 text-sm leading-relaxed">{g.data.lead}</p>
+							<span class="text-primary-500 mt-3 inline-block text-sm underline">読む →</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<Contact class="mt-16" />
+</BaseLayout>
