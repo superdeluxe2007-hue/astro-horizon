@@ -44,6 +44,8 @@ export const restaurantSchema = () => ({
 	priceRange: "¥1,000〜2,000",
 	acceptsReservations: "https://booking.ebica.jp/webrsv/search/e014121101/29492",
 	hasMenu: absolute("/menu/"),
+	// 運営会社（フッターに表示している）。姉妹店の KOKON と同じ会社であることを検索・AI に伝える
+	parentOrganization: { "@type": "Organization", name: "株式会社SPDX" },
 	// お問い合わせ欄に出している Google マップのリンクと同じもの。
 	// Googleビジネスプロフィールと HP を結び付け、AI検索（AI Overview・ChatGPT 等）が
 	// 同じ店だと判定できるようにする。place_id は GBP API で確定した値。
