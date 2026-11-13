@@ -39,6 +39,7 @@ const schemas = [breadcrumbSchema([{ label: "ホーム", to: "/" }, { label: "�
 									width={560}
 									densities={[1.5, 2]}
 									class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+									style={g.data.heroPosition ? `object-position: ${g.data.heroPosition}` : undefined}
 								/>
 							</div>
 							<h2 class="font-heading-1 mt-4 text-xl text-pretty">{g.data.title.split("｜")[0]}</h2>

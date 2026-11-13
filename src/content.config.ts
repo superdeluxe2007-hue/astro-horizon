@@ -114,6 +114,8 @@ const guides = defineCollection({
 			lead: z.string(),
 			heroImage: image(),
 			heroAlt: z.string(),
+			// 写真の見せる位置（縦長の写真を横長の枠に入れるとき。例: "50% 70%"）。省略＝中央
+			heroPosition: z.string().optional(),
 			date: z.coerce.date(),
 			updated: z.coerce.date().optional(),
 			faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
