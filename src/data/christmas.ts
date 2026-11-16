@@ -59,7 +59,7 @@ export const XMAS_ITEMS: XmasItem[] = [
 		// なっちゃんの説明文（2026-11-12 エンリーサミット）をもとに
 		description:
 			"Enleeこだわりのシュークリームを、クリスマスケーキにアレンジしました。アーモンドやナッツの香ばしさ、サクサクの生地に、たっぷりのカスタードクリームといちご・ベリーをはさんでいます。",
-		prices: [{ price: 5500 }],
+		prices: [{ price: 4800 }],
 		image: parisBrestImage,
 		alt: "いちごとベリーをはさんだ、リング形のパリブレスト",
 	},
