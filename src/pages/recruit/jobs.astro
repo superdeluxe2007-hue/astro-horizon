@@ -1,0 +1,100 @@
+---
+/**
+ * 募集要項（/recruit/jobs）
+ *
+ * 方針（2026-11-21 本人判断）:
+ *   - 採用ページ（/recruit）は「どんな人が、どんな思いで働いているか」のまま条件を書かない（2026-11-13）
+ *   - 条件はこの1枚にだけ置き、Google しごと検索向けの JobPosting を付ける（費用をかけずに届かせる）
+ *   - 中身は src/data/jobs.ts だけで管理する（Indeed・ハローワークの求人票と同じ条件にそろえる）
+ */
+import Button from "@components/Button/Button.astro";
+import Contact from "@components/Contact/Contact.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { JOBS } from "@/data/jobs";
+import { RECRUIT_CONTACT } from "@/data/recruit";
+import { jobPostingSchema } from "@/lib/structured-data";
+import { Icon } from "astro-icon/components";
+
+// 🔴 表示と構造化データは同じ JOBS 配列から作る
+const schemas = JOBS.map(jobPostingSchema);
+---
+
+<BaseLayout
+	title="募集要項"
+	description="福山・中央公園の中のガーデンレストランEnlee（エンリー）のスタッフ募集要項。職種・時間帯・時給・待遇と、応募の方法。"
+	schemas={schemas}
+>
+	<section class="mx-auto max-w-3xl px-4 pt-24 md:pt-36">
+		<p class="h3 text-primary-500 text-center text-pretty uppercase">Recruit</p>
+		<h1 class="h2 mt-4 text-center">募集要項</h1>
+		<p class="description mt-6 text-center text-pretty">
+			いま募集している仕事と、その条件です。<br class="hidden md:inline" />
+			店の空気や働く人のことは、<a href="/recruit/" class="underline underline-offset-4">採用情報のページ</a>をご覧ください。
+		</p>
+
+		{
+			JOBS.map((job) => (
+				<article id={job.id} class="mt-12 scroll-mt-10 md:mt-16">
+					<p class="text-primary-500 text-sm tracking-widest">{job.employmentLabel}</p>
+					<h2 class="h3 mt-2">{job.title}</h2>
+
+					<div class="description mt-6 space-y-4">
+						{job.description.map((p) => (
+							<p class="text-pretty">{p}</p>
+						))}
+					</div>
+
+					<h3 class="font-heading-1 mt-10 text-lg md:text-xl">こんな方を探しています</h3>
+					<ul class="description mt-4 list-disc space-y-1 pl-6">
+						{job.wants.map((w) => (
+							<li>{w}</li>
+						))}
+					</ul>
+
+					<h3 class="font-heading-1 mt-10 text-lg md:text-xl">条件</h3>
+					<dl class="mt-4">
+						{job.rows.map((r) => (
+							<div class="border-base-200 flex flex-col gap-1 border-t py-4 last:border-b md:flex-row md:gap-6">
+								<dt class="text-base-700 w-28 shrink-0 text-sm md:pt-0.5">{r.label}</dt>
+								<dd class="description">{r.value}</dd>
+							</div>
+						))}
+					</dl>
+					<p class="text-base-600 mt-3 text-sm">掲載日 {job.datePosted.replaceAll("-", "/")}</p>
+				</article>
+			))
+		}
+
+		<div id="apply" class="mt-16 scroll-mt-10 text-center">
+			<h2 class="h3">応募・ご相談</h2>
+			<p class="description mt-4 text-pretty">
+				公式LINEから「求人について」とお送りください。シフトの入り方や、いま人手が足りている時間帯など、正直にお伝えします。お電話でも受け付けています。
+			</p>
+			<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<Button href={RECRUIT_CONTACT.lineUrl} target="_blank" rel="noopener noreferrer" arrow="right" class="px-8">
+					公式LINEで相談する
+				</Button>
+				{
+					RECRUIT_CONTACT.indeedUrl && (
+						<Button
+							href={RECRUIT_CONTACT.indeedUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							variant="outline"
+							arrow="right"
+							class="px-8"
+						>
+							Indeed から応募する
+						</Button>
+					)
+				}
+			</div>
+			<p class="mt-8 flex items-center justify-center gap-2 text-lg">
+				<Icon name="tabler:phone" class="size-5 shrink-0" aria-hidden="true" />
+				<a href={`tel:${RECRUIT_CONTACT.tel}`} class="underline underline-offset-4">{RECRUIT_CONTACT.tel}</a>
+			</p>
+		</div>
+	</section>
+
+	<Contact class="mt-24" />
+</BaseLayout>

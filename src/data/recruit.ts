@@ -85,6 +85,8 @@ export const RECRUIT_PATH = {
 export const RECRUIT_CONTACT = {
 	heading: "話を聞いてみたい方へ",
 	body: "募集している時間帯や条件は、時期によって変わります。まずは公式LINEから「求人について」とお送りください。お店のこと、シフトの入り方、いま人手が足りている時間帯など、正直にお伝えします。",
+	// 募集要項（条件を書く唯一のページ。2026-11-21 新設 → src/data/jobs.ts）
+	jobsUrl: "/recruit/jobs/",
 	// 🔴 Indeed の求人ページを公開したら、その URL をここに入れてください（空のあいだはボタンが出ません）
 	indeedUrl: "",
 	lineUrl: "https://lin.ee/ngJUcCC",

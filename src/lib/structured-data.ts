@@ -230,3 +230,64 @@ export const graph = (...nodes: unknown[]) => ({
 	"@context": "https://schema.org",
 	"@graph": nodes.filter(Boolean),
 });
+
+/**
+ * 募集要項（/recruit/jobs）の JobPosting。Google しごと検索に無料で出すためのもの。
+ * 🔴 値はページに表示している内容だけで構成する（src/data/jobs.ts が正本）。
+ *    validThrough を過ぎた求人は Google が落とすので、続けるなら日付を更新する。
+ */
+export const jobPostingSchema = (job: {
+	id: string;
+	title: string;
+	employmentType: string;
+	datePosted: string;
+	validThrough: string;
+	salary: { min: number; max: number; unit: string };
+	workHours: string;
+	description: string[];
+	wants: string[];
+	rows: { label: string; value: string }[];
+}) => ({
+	"@type": "JobPosting",
+	"@id": `${SITE_URL}/recruit/jobs/#${job.id}`,
+	title: job.title,
+	description:
+		job.description.map((p) => `<p>${p}</p>`).join("") +
+		`<p>【こんな方を探しています】</p><ul>${job.wants.map((w) => `<li>${w}</li>`).join("")}</ul>` +
+		`<ul>${job.rows.map((r) => `<li>${r.label}：${r.value}</li>`).join("")}</ul>`,
+	identifier: { "@type": "PropertyValue", name: "Enlee", value: job.id },
+	datePosted: job.datePosted,
+	validThrough: `${job.validThrough}T23:59:59+09:00`,
+	employmentType: job.employmentType,
+	hiringOrganization: {
+		"@type": "Organization",
+		name: "株式会社SPDX",
+		sameAs: absolute("/"),
+		logo: absolute(siteData.defaultImage.src),
+	},
+	jobLocation: {
+		"@type": "Place",
+		name: "Enlee（エンリー）",
+		address: {
+			"@type": "PostalAddress",
+			postalCode: "720-0812",
+			addressRegion: "広島県",
+			addressLocality: "福山市",
+			streetAddress: "霞町1-10-2（中央公園内）",
+			addressCountry: "JP",
+		},
+	},
+	baseSalary: {
+		"@type": "MonetaryAmount",
+		currency: "JPY",
+		value: {
+			"@type": "QuantitativeValue",
+			minValue: job.salary.min,
+			maxValue: job.salary.max,
+			unitText: job.salary.unit,
+		},
+	},
+	workHours: job.workHours,
+	directApply: false,
+	url: `${SITE_URL}/recruit/jobs/`,
+});
