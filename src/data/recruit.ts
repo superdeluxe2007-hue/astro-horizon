@@ -39,7 +39,7 @@ export const RECRUIT_DAY: { time: string; title: string; body: string }[] = [
 	},
 ];
 
-/** 大切にしていること（理念「三つの約束」より） */
+/** 大切にしていること（理念「三つの約束」より。約束三は 2026-11-23 本人判断で採用ページには載せない） */
 export const RECRUIT_PROMISES: { label: string; title: string; body: string }[] = [
 	{
 		label: "一",
@@ -51,11 +51,6 @@ export const RECRUIT_PROMISES: { label: string; title: string; body: string }[] 
 		label: "二",
 		title: "素敵をつくる人が、育ちつづける",
 		body: "できることが増えていくのを、そのままにしません。ホールからデザート、カフェから貸切の進行まで、やってみたいことがあれば任せます。",
-	},
-	{
-		label: "三",
-		title: "続けられる店で、ありつづける",
-		body: "無理をして一度きり盛り上げるより、10年続く形を選びます。人が足りない日を減らすことも、その一部だと思っています。",
 	},
 ];
 
