@@ -32,6 +32,12 @@ import { Icon } from "astro-icon/components";
 				<p class="h3 text-primary-500 text-pretty uppercase">{RECRUIT_HERO.eyebrow}</p>
 				<h1 class="h2 mt-4"><span class="sr-only">採用情報｜</span>{RECRUIT_HERO.heading}</h1>
 				<p class="mt-8 text-pretty lg:text-lg">{RECRUIT_HERO.lead}</p>
+				<!-- 上のほうにも入口を1つ（2026-11-24）。条件はこのページに書かず、募集要項へ送る -->
+				<div class="mt-8">
+					<Button href={RECRUIT_CONTACT.jobsUrl} variant="outline" arrow="right" class="px-8">
+						募集要項を見る
+					</Button>
+				</div>
 			</div>
 			<div class="mt-10 md:mt-0 md:w-1/2">
 				<div class="aspect-[4/3] w-full overflow-hidden">
