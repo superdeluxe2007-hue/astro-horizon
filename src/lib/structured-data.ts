@@ -38,9 +38,9 @@ export const restaurantSchema = () => ({
 		},
 	],
 	servesCuisine: ["カフェ", "洋食"],
-	// 宴会の最大人数。半立食のブッフェで70名（貸切プランのページに表示）。
+	// 宴会の最大人数。半立食のブッフェで80名（貸切プランのページに表示）。
 	// 総席数（着席）は65席＝店内40席＋テラス25席。
-	maximumAttendeeCapacity: 70,
+	maximumAttendeeCapacity: 80,
 	priceRange: "¥1,000〜2,000",
 	acceptsReservations: "https://booking.ebica.jp/webrsv/search/e014121101/29492",
 	hasMenu: absolute("/menu/"),
